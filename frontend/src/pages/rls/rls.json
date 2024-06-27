@@ -1,0 +1,219 @@
+[
+    {
+        "S.No": 1,
+        "Level": "SE - L0",
+        "Country": "india",
+        "Monthly Rate (in USD)": 3500
+    },
+    {
+        "S.No": 2,
+        "Level": "SE - L1",
+        "Country": "india",
+        "Monthly Rate (in USD)": 4500
+    },
+    {
+        "S.No": 3,
+        "Level": "SE - L2",
+        "Country": "india",
+        "Monthly Rate (in USD)": 5500
+    },
+    {
+        "S.No": 4,
+        "Level": "SE - L3",
+        "Country": "india",
+        "Monthly Rate (in USD)": 8500
+    },
+    {
+        "S.No": 5,
+        "Level": "SE - L4",
+        "Country": "india",
+        "Monthly Rate (in USD)": 10500
+    },
+    {
+        "S.No": 6,
+        "Level": "RMA",
+        "Country": "india",
+        "Monthly Rate (in USD)": 12000
+    },
+    {
+        "S.No": 7,
+        "Level": "PM",
+        "Country": "india",
+        "Monthly Rate (in USD)": 13000
+    },
+    {
+        "S.No": 8,
+        "Level": "Onsite SE - L1",
+        "Country": "india",
+        "Monthly Rate (in USD)": 5000
+    },
+    {
+        "S.No": 9,
+        "Level": "Onsite SE - L2",
+        "Country": "india",
+        "Monthly Rate (in USD)": 6000
+    },
+    {
+        "S.No": 10,
+        "Level": "Onsite SE - L3",
+        "Country": "india",
+        "Monthly Rate (in USD)": 7000
+    },
+    {
+        "S.No": 11,
+        "Level": "Onsite SE - L4",
+        "Country": "india",
+        "Monthly Rate (in USD)": 9000
+    },
+    {
+        "S.No": 12,
+        "Level": "Onsite PM",
+        "Country": "india",
+        "Monthly Rate (in USD)": 10000
+    },
+    {
+        "S.No": 13,
+        "Level": "SE - L0",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 3800
+    },
+    {
+        "S.No": 14,
+        "Level": "SE - L1",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 4800
+    },
+    {
+        "S.No": 15,
+        "Level": "SE - L2",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 5800
+    },
+    {
+        "S.No": 16,
+        "Level": "SE - L3",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 8800
+    },
+    {
+        "S.No": 17,
+        "Level": "SE - L4",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 10800
+    },
+    {
+        "S.No": 18,
+        "Level": "RMA",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 12300
+    },
+    {
+        "S.No": 19,
+        "Level": "PM",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 13300
+    },
+    {
+        "S.No": 20,
+        "Level": "Onsite SE - L1",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 5100
+    },
+    {
+        "S.No": 21,
+        "Level": "Onsite SE - L2",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 6100
+    },
+    {
+        "S.No": 22,
+        "Level": "Onsite SE - L3",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 7100
+    },
+    {
+        "S.No": 23,
+        "Level": "Onsite SE - L4",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 9100
+    },
+    {
+        "S.No": 24,
+        "Level": "Onsite PM",
+        "Country": "egypt",
+        "Monthly Rate (in USD)": 10100
+    },
+    {
+        "S.No": 25,
+        "Level": "SE - L0",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 4000
+    },
+    {
+        "S.No": 26,
+        "Level": "SE - L1",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 5000
+    },
+    {
+        "S.No": 27,
+        "Level": "SE - L2",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 6000
+    },
+    {
+        "S.No": 28,
+        "Level": "SE - L3",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 9000
+    },
+    {
+        "S.No": 29,
+        "Level": "SE - L4",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 11000
+    },
+    {
+        "S.No": 30,
+        "Level": "RMA",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 13000
+    },
+    {
+        "S.No": 31,
+        "Level": "PM",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 14000
+    },
+    {
+        "S.No": 32,
+        "Level": "Onsite SE - L1",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 6000
+    },
+    {
+        "S.No": 33,
+        "Level": "Onsite SE - L2",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 7000
+    },
+    {
+        "S.No": 34,
+        "Level": "Onsite SE - L3",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 8000
+    },
+    {
+        "S.No": 35,
+        "Level": "Onsite SE - L4",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 10000
+    },
+    {
+        "S.No": 36,
+        "Level": "Onsite PM",
+        "Country": "taiwan",
+        "Monthly Rate (in USD)": 11000
+    }
+]
+

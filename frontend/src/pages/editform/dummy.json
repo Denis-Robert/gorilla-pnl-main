@@ -1,0 +1,162 @@
+{
+    "deal_id": 20240614230,
+    "formData": {
+      "acc_manager": "Sujan",
+      "bidding": false,
+      "business_type": "Government",
+      "currency": "EGP",
+      "cust_budget": 1000000,
+      "customer_name": "Testing 1",
+      "customer_type": "New",
+      "deal_id": 20240614230,
+      "direct_sale": false,
+      "domain": "IoT",
+      "end_date": "2025-10-01",
+      "guarantee": true,
+      "misc": "NA",
+      "on_call_allowance": false,
+      "one_time_cost": false,
+      "opportunity": "New",
+      "partner": false,
+      "penalty": false,
+      "presales_spoc": "Denis",
+      "region": "Taiwan",
+      "shift_allowance": false,
+      "sla": false,
+      "start_date": "2024-06-01",
+      "third_party": false,
+      "tool_license": true,
+      "total_contract": "16",
+      "travel_expense": 10000,
+      "vat": 5,
+      "weekend_allowance": false,
+      "workNature": {
+        "Customization": false,
+        "Deployment": false,
+        "Enhancement": false,
+        "Hardware": true,
+        "License": true,
+        "Professional Services": false,
+        "Support": false,
+        "software": true
+      }
+    },
+    "misc_data": {
+      "3rd Party": 0,
+      "Miscellaneous": 0,
+      "On Call Allowance": 0,
+      "One Time Cost": 0,
+      "SLA Penalty": 0,
+      "Shift Allowance": 0,
+      "Tool License": "99",
+      "Training": 0,
+      "Weekend Allowance": 0
+    },
+    "rls_cart": [
+      {
+        "key": "L0-india",
+        "manDayQuantities": [
+          {
+            "manDays": 1,
+            "month": 1,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 2,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 3,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 4,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 5,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 6,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 7,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 8,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 9,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 10,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 11,
+            "quantities": 0
+          },
+          {
+            "manDays": 0,
+            "month": 12,
+            "quantities": 0
+          }
+        ],
+        "resource": {
+          "cost": 3000,
+          "daily_rate": 138.46,
+          "level": "L0",
+          "region": "india",
+          "s_no": 1
+        },
+        "totalCost": 138.46
+      }
+    ],
+    "shopping_cart": {
+      "Gor-V-S-IVAR-IVA": {
+        "domain": "Video",
+        "name": "IVAR - IVA/VMS channel software",
+        "part_type": "software",
+        "price": 900,
+        "qty": 1,
+        "status": "Active",
+        "total_price": 900,
+        "unit_price": 900
+      },
+      "Gor-V-S-IVAR-TPTS": {
+        "domain": "Video",
+        "name": "TP - Training service license",
+        "part_type": "license",
+        "price": 50000,
+        "qty": 1,
+        "status": "Active",
+        "total_price": 50000,
+        "unit_price": 50000
+      },
+      "Gor-V-S-IVAR-VMS": {
+        "domain": "Video",
+        "name": "IVAR - NVR/VMS channel license",
+        "part_type": "software",
+        "price": 90,
+        "qty": 1,
+        "status": "Active",
+        "total_price": 90,
+        "unit_price": 90
+      }
+    }
+  }

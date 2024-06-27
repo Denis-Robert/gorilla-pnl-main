@@ -1,0 +1,602 @@
+[
+    {
+        "S.No": 1,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-VMS",
+        "Product Name": "IVAR - NVR/VMS channel license",
+        "Part Type": "software",
+        "List Price (USD$)": 90
+    },
+    {
+        "S.No": 2,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-IVA",
+        "Product Name": "IVAR - IVA/VMS channel software",
+        "Part Type": "software",
+        "List Price (USD$)": 900
+    },
+    {
+        "S.No": 3,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-TPDS",
+        "Product Name": "TP - Dataset service software",
+        "Part Type": "software",
+        "List Price (USD$)": 50000
+    },
+    {
+        "S.No": 4,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-TPTS",
+        "Product Name": "TP - Training service license",
+        "Part Type": "license",
+        "List Price (USD$)": 50000
+    },
+    {
+        "S.No": 5,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-ModAll",
+        "Product Name": "IVAR Sampler License",
+        "Part Type": "license",
+        "List Price (USD$)": 1000
+    },
+    {
+        "S.No": 6,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-All",
+        "Product Name": "IVA Channel License - ALL",
+        "Part Type": "license",
+        "List Price (USD$)": 3000
+    },
+    {
+        "S.No": 7,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-FDR",
+        "Product Name": "IVA Channel License - FR",
+        "Part Type": "license",
+        "List Price (USD$)": 1500
+    },
+    {
+        "S.No": 8,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-IPM",
+        "Product Name": "IVA Channel License - IPM",
+        "Part Type": "license",
+        "List Price (USD$)": 2100
+    },
+    {
+        "S.No": 9,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-VDR",
+        "Product Name": "IVA Channel License - VDR",
+        "Part Type": "license",
+        "List Price (USD$)": 1500
+    },
+    {
+        "S.No": 10,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-LPR",
+        "Product Name": "IVA Channel License - LPR",
+        "Part Type": "license",
+        "List Price (USD$)": 1200
+    },
+    {
+        "S.No": 11,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-IVAR-VQC",
+        "Product Name": "IVAR VQC Tool License",
+        "Part Type": "license",
+        "List Price (USD$)": 1000
+    },
+    {
+        "S.No": 12,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-BAP",
+        "Product Name": "BAP",
+        "Part Type": "software",
+        "List Price (USD$)": 4000
+    },
+    {
+        "S.No": 13,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-BAPSer",
+        "Product Name": "Biometric Authentication Provider (Server)",
+        "Part Type": "software",
+        "List Price (USD$)": 2000
+    },
+    {
+        "S.No": 14,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-BAPEdg",
+        "Product Name": "Biometric Authentication Provider (Edge)",
+        "Part Type": "software",
+        "List Price (USD$)": 1500
+    },
+    {
+        "S.No": 15,
+        "Domain": "Video",
+        "Part#": "Gor-V-L-BAP100",
+        "Product Name": "Biometric Authentication 100 User License",
+        "Part Type": "license",
+        "List Price (USD$)": 100
+    },
+    {
+        "S.No": 16,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-SAS",
+        "Product Name": "Smart Attendance Server(Standard)",
+        "Part Type": "software",
+        "List Price (USD$)": 7500
+    },
+    {
+        "S.No": 17,
+        "Domain": "Video",
+        "Part#": "Gor-V-L-SAC",
+        "Product Name": "Smart Attendance Client license",
+        "Part Type": "license",
+        "List Price (USD$)": 2600
+    },
+    {
+        "S.No": 18,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-EVMS-SN",
+        "Product Name": "Standard EVMS (Single Node)",
+        "Part Type": "software",
+        "List Price (USD$)": 56000
+    },
+    {
+        "S.No": 19,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-EVMS-MNC",
+        "Product Name": "Standard Cluster EVMS (Multi-Nodes)",
+        "Part Type": "software",
+        "List Price (USD$)": 168000
+    },
+    {
+        "S.No": 20,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-EVMS-AI-SN",
+        "Product Name": "AI-based EVMS (Single Node)",
+        "Part Type": "software",
+        "List Price (USD$)": 80000
+    },
+    {
+        "S.No": 21,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-EVMS-AI-MNC",
+        "Product Name": "AI-based Cluster EVMS (Multi-Nodes)",
+        "Part Type": "software",
+        "List Price (USD$)": 240000
+    },
+    {
+        "S.No": 22,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-FVS-Std",
+        "Product Name": "FVS (Standard)",
+        "Part Type": "software",
+        "List Price (USD$)": 30000
+    },
+    {
+        "S.No": 23,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-FVS-Pro",
+        "Product Name": "FVS (Professional)",
+        "Part Type": "software",
+        "List Price (USD$)": 90000
+    },
+    {
+        "S.No": 24,
+        "Domain": "Video",
+        "Part#": "GV21-VAC-THM-OP-SHY01",
+        "Product Name": "Vision AI Thermal Camera",
+        "Part Type": "hardware",
+        "List Price (USD$)": 2000
+    },
+    {
+        "S.No": 25,
+        "Domain": "Video",
+        "Part#": "GV21-VAC-BLB-OP-SHY01",
+        "Product Name": "Vision AI Black Body",
+        "Part Type": "hardware",
+        "List Price (USD$)": 875
+    },
+    {
+        "S.No": 26,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-FR",
+        "Product Name": "Facial Recognition",
+        "Part Type": "software",
+        "List Price (USD$)": 1000
+    },
+    {
+        "S.No": 27,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-DeAnal",
+        "Product Name": "Demographics & Face Attributes",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 28,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Loit",
+        "Product Name": "Loitering",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 29,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Crow",
+        "Product Name": "Crowding",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 30,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Dire",
+        "Product Name": "Direction Analysis",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 31,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Intr",
+        "Product Name": "Intrusion Detection",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 32,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Line",
+        "Product Name": "Line Crossing",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 33,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Pcount",
+        "Product Name": "People Counting",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 34,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Occu",
+        "Product Name": "Occupancy",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 35,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Dwel",
+        "Product Name": "Dwell time",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 36,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Path",
+        "Product Name": "Path Analysis",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 37,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-HeatMap",
+        "Product Name": "Heatmap",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 38,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-LPR",
+        "Product Name": "Vehicle LPR",
+        "Part Type": "software",
+        "List Price (USD$)": 1000
+    },
+    {
+        "S.No": 39,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-Veh",
+        "Product Name": "Vehicle Attributes",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 40,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-VehCou",
+        "Product Name": "Vehicle Counting",
+        "Part Type": "software",
+       "List Price (USD$)": 500
+    },
+    {
+        "S.No": 41,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-VehCro",
+        "Product Name": "Vehicle Crowding",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 42,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-VehSpe",
+        "Product Name": "Vehicle Speed",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 43,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-VehPar",
+        "Product Name": "Vehicle Parking",
+        "Part Type": "software",
+        "List Price (USD$)": 500
+    },
+    {
+        "S.No": 44,
+        "Domain": "Video",
+        "Part#": "Gor-V-S-AIMod-VehPath",
+        "Product Name": "Vehicle Path Behavior",
+        "Part Type": "software",
+        "List Price (USD$)": 1500
+    },
+    {
+        "S.No": 45,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-EdgeGuard",
+        "Product Name": "EdgeGuard",
+        "Part Type": "hardware",
+        "List Price (USD$)": 13400
+    },
+    {
+        "S.No": 46,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-FRMOTP-Cli",
+        "Product Name": "FR-MOTP Client",
+        "Part Type": "software",
+        "List Price (USD$)": 50
+    },
+    {
+        "S.No": 47,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-FRMOTP-Ser",
+        "Product Name": "FR-MOTP Server",
+        "Part Type": "software",
+        "List Price (USD$)": 3500
+    },
+    {
+        "S.No": 48,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-FRMOTP-Ser-Ext",
+        "Product Name": "FR-MOTP Server (Extra extend)",
+        "Part Type": "software",
+        "List Price (USD$)": 200
+    },
+    {
+        "S.No": 49,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-FRMOTP-Web",
+        "Product Name": "FR-MOTP Server (Web MOTP)",
+        "Part Type": "software",
+        "List Price (USD$)": 700
+    },
+    {
+        "S.No": 50,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-FRMOTP-All",
+        "Product Name": "FR-MOTP User License (Server & Mobile APP, 50 ppl)",
+        "Part Type": "license",
+        "List Price (USD$)": 14000
+    },
+    {
+        "S.No": 51,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-HMD-AM",
+        "Product Name": "HMD (All Module)",
+        "Part Type": "software",
+        "List Price (USD$)": 200
+    },
+    {
+        "S.No": 52,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-HMD-Ser",
+        "Product Name": "HMD Server",
+        "Part Type": "software",
+        "List Price (USD$)": 8500
+    },
+    {
+        "S.No": 53,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-HMD-EDR",
+        "Product Name": "HMD (EDR Module)",
+        "Part Type": "software",
+        "List Price (USD$)": 6500
+    },
+    {
+        "S.No": 54,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-HMD-EDRSer",
+        "Product Name": "HMD Server (EDR)",
+        "Part Type": "software",
+        "List Price (USD$)": 15250
+    },
+    {
+        "S.No": 55,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-HMD-GCB",
+        "Product Name": "HMD (GCB)",
+        "Part Type": "software",
+        "List Price (USD$)": 2000
+    },
+    {
+        "S.No": 56,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-HMD-GCBSer",
+        "Product Name": "HMD Server (GCB)",
+        "Part Type": "software",
+        "List Price (USD$)": 5000
+    },
+    {
+        "S.No": 57,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-HMD-VANS",
+        "Product Name": "HMD (VANS)",
+        "Part Type": "software",
+        "List Price (USD$)": 3000
+    },
+    {
+        "S.No": 58,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-HMD-VANSSer",
+        "Product Name": "HMD Server (VANS)",
+        "Part Type": "software",
+        "List Price (USD$)": 7500
+    },
+    {
+        "S.No": 59,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetProbe-1G",
+        "Product Name": "NetProbe (1G)",
+        "Part Type": "hardware",
+        "List Price (USD$)": 45000
+    },
+    {
+        "S.No": 60,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetProbe-4G",
+        "Product Name": "NetProbe (4G)",
+        "Part Type": "hardware",
+        "List Price (USD$)": 60000
+    },
+    {
+        "S.No": 61,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetProbe-10G",
+        "Product Name": "NetProbe (10G)",
+        "Part Type": "hardware",
+        "List Price (USD$)": 110000
+    },
+    {
+        "S.No": 62,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-NetProbe-ADD",
+        "Product Name": "NetProbe (Anti-DDoS Module)",
+        "Part Type": "software",
+        "List Price (USD$)": 7000
+    },
+    {
+        "S.No": 63,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetProbe-ADD1G",
+        "Product Name": "NetProbe IDS/IPS/Anti-DDoS/1G",
+        "Part Type": "hardware",
+        "List Price (USD$)": 60884
+    },
+    {
+        "S.No": 64,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetProbe-ADD4G",
+        "Product Name": "NetProbe IDS/IPS/Anti-DDoS/4G",
+        "Part Type": "hardware",
+        "List Price (USD$)": 75000
+    },
+    {
+        "S.No": 65,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetProbe-ADD10G",
+        "Product Name": "NetProbe IDS/IPS/Anti-DDoS/10G",
+        "Part Type": "hardware",
+        "List Price (USD$)": 120000
+    },
+    {
+        "S.No": 66,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetProxy",
+        "Product Name": "NetProxy (A)",
+        "Part Type": "hardware",
+        "List Price (USD$)": 18000
+    },
+    {
+        "S.No": 67,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-NetProxy",
+        "Product Name": "NetProxy (SW)",
+        "Part Type": "software",
+        "List Price (USD$)": 14000
+    },
+    {
+        "S.No": 68,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetTrap-IT",
+        "Product Name": "NetTrap (IT)",
+        "Part Type": "hardware",
+        "List Price (USD$)": 28300
+    },
+    {
+        "S.No": 69,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetTrap-OT",
+        "Product Name": "NetTrap (OT)",
+        "Part Type": "hardware",
+        "List Price (USD$)": 33400
+    },
+    {
+        "S.No": 70,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-NetTrap-DNSFW",
+        "Product Name": "NetTrap (DNS Firewall)",
+        "Part Type": "hardware",
+        "List Price (USD$)": 5085
+    },
+    {
+        "S.No": 71,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-NetTrap-IT",
+        "Product Name": "NetTrap (IT-SW)",
+        "Part Type": "software",
+        "List Price (USD$)": 1670
+    },
+    {
+        "S.No": 72,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-NetTrap-OT",
+        "Product Name": "NetTrap (OT-SW)",
+        "Part Type": "software",
+        "List Price (USD$)": 2670
+    },
+    {
+        "S.No": 73,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-NetTrap-DNSFW",
+        "Product Name": "NetTrap (DNS Firewall)",
+        "Part Type": "software",
+        "List Price (USD$)": 700
+    },
+    {
+        "S.No": 74,
+        "Domain": "Security",
+        "Part#": "Gor-S-A-SCP",
+        "Product Name": "SCP",
+        "Part Type": "hardware",
+        "List Price (USD$)": 40000
+    },
+    {
+        "S.No": 75,
+        "Domain": "Security",
+        "Part#": "Gor-S-S-SCP",
+        "Product Name": "SCP (SW)",
+        "Part Type": "software",
+        "List Price (USD$)": 26700
+    }
+]

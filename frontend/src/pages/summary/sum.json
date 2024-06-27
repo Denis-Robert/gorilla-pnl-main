@@ -1,0 +1,11 @@
+{
+    "DealID": "12345",
+    "ClientName": "John Doe",
+    "DealAmount": "$100,000",
+    "StartDate": "2024-01-01",
+    "EndDate": "2024-12-31",
+    "Status": "Active",
+    "SalesRepresentative": "Jane Smith",
+    "Region": "North America"
+
+}
