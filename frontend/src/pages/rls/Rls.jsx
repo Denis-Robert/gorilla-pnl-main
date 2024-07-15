@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Rls = ({ rlsCart,setRlsCart,formData
-   }) => {
+const Rls = ({ rlsCart, setRlsCart, formData }) => {
+  const [resourceData, setResourceData] = useState([]);
+  const [manDays, setManDays] = useState({});
+  const [quantities, setQuantities] = useState({});
+  const [totalCost, setTotalCost] = useState(0);
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [enabledResources, setEnabledResources] = useState({});
 
-
-
-    const [resourceData, setResourceData] = useState([]);
-    const [manDays, setManDays] = useState({});
-    const [quantities, setQuantities] = useState({});
-    const [totalCost, setTotalCost] = useState(0);
-    const [selectedCountry, setSelectedCountry] = useState('');
-    const [enabledResources, setEnabledResources] = useState({});
-    
-
-    console.log("sc"+JSON.stringify(selectedCountry)+"\nq"+JSON.stringify(quantities)+"\ntc"+totalCost+"\nma"+JSON.stringify(manDays))
+  const totalMonths = parseInt(formData.total_contract) || 0;
+  const workingDaysPerMonth = 22; // imp: Approximately 65 days per quarter / 3 months
 
   const handleSwitchChange = (resourceKey, isEnabled) => {
     setEnabledResources((prev) => ({
@@ -22,10 +18,6 @@ const Rls = ({ rlsCart,setRlsCart,formData
       [resourceKey]: isEnabled,
     }));
   };
-
-  console.log("rls_page: ",rlsCart)
-
- 
 
   const handleInputChange = (e, resource, month, type) => {
     const value = parseFloat(e.target.value) || 0;
@@ -36,25 +28,6 @@ const Rls = ({ rlsCart,setRlsCart,formData
     } else if (type === 'quantity') {
       setQuantities((prev) => ({ ...prev, [key]: value }));
     }
-
-    calculateTotal();
-  };
-
-  const calculateTotal = () => {
-    let total = 0;
-
-    resourceData.forEach((res) => {
-      for (let month = 1; month <= formData.totalContractPeriod; month++) {
-        const key = `${res.level}-${res.region}-${month}`;
-        const manDay = manDays[key] || 0;
-        const quantity = quantities[key] || 0;
-        const cost = res.daily_rate || 0;
-
-        total += manDay * quantity * cost;
-      }
-    });
-
-    setTotalCost(total);
   };
 
   const uniqueCountries = [...new Set(resourceData.map((res) => res.region))];
@@ -63,15 +36,36 @@ const Rls = ({ rlsCart,setRlsCart,formData
     ? resourceData.filter((res) => res.region === selectedCountry)
     : resourceData;
 
-    useEffect(() => {
-      console.log("useeeeeeeeeeeee\n"+"sc"+JSON.stringify(selectedCountry)+"\nq"+JSON.stringify(quantities)+"\ntc"+totalCost+"\nma"+JSON.stringify(manDays))      
-      const updatedCart = filteredResourceData
-        .filter((res) => enabledResources[`${res.level}-${res.region}`])
-        .map((res) => {
+  useEffect(() => {
+    const calculateTotal = () => {
+      let total = 0;
+
+      resourceData.forEach((res) => {
+        if (enabledResources[`${res.level}-${res.region}`]) {
+          for (let month = 1; month <= totalMonths; month++) {
+            const key = `${res.level}-${res.region}-${month}`;
+            const manDay = manDays[key] || 0;
+            const quantity = quantities[key] || 0;
+            const dailyRate = res.cost / workingDaysPerMonth; 
+
+            total += manDay * quantity * dailyRate;
+          }
+        }
+      });
+
+      return total;
+    };
+
+    const newTotalCost = calculateTotal();
+    setTotalCost(newTotalCost);
+    
+    const updatedCart = filteredResourceData
+      .filter((res) => enabledResources[`${res.level}-${res.region}`])
+      .map((res) => {
         const level = res.level;
         const region = res.region;
-        const manDayQuantities = Array.from({ length: formData.totalContractPeriod }, (_, i) => ({
-          month: i + 1,
+        const manDayQuantities = Array.from({ length: totalMonths }, (_, i) => ({
+          month: `M${i + 1}`,
           manDays: manDays[`${level}-${region}-${i + 1}`] || 0,
           quantities: quantities[`${level}-${region}-${i + 1}`] || 0,
         }));
@@ -79,26 +73,23 @@ const Rls = ({ rlsCart,setRlsCart,formData
           key: `${level}-${region}`,
           resource: res,
           manDayQuantities,
-          totalCost,
+          totalCost: newTotalCost,
         };
       });
-      setRlsCart(updatedCart);
-}, [selectedCountry, manDays, quantities, totalCost]);
+    setRlsCart(updatedCart);
+  }, [selectedCountry, manDays, quantities, enabledResources, filteredResourceData, totalMonths, resourceData]);
 
-
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://127.0.0.1:5000/api/read-rls');
-      setResourceData(response.data);
-      console.log("resssssssssssssssss"+JSON.stringify(resourceData))
-    } catch (error) {
-      console.error('Error fetching resource costs', error);
-    }
-  };
-  fetchData();
-}, []);
-    
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:5000/api/read-rls');
+        setResourceData(response.data);
+      } catch (error) {
+        console.error('Error fetching resource costs', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="container mx-auto p-4">
@@ -120,63 +111,61 @@ useEffect(() => {
         </select>
       </div>
       
-      <table className="min-w-full bg-white border border-gray-300">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border-b border-gray-300">Level</th>
-            <th className="py-2 px-4 border-b border-gray-300">Country</th>
-            {Array.from({ length: formData.totalContractPeriod }, (_, i) => (
-              <th key={i + 1} className="py-2 px-4 border-b border-gray-300">M{i + 1}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredResourceData.map((res) => (
-            <tr key={`${res.level}-${res.region}`}>
-              <td key={`switch-${res.level}-${res.region}`}>
-                <input
-                  type="checkbox"
-                  checked={enabledResources[`${res.level}-${res.region}`]}
-                  onChange={(e) => handleSwitchChange(`${res.level}-${res.region}`, e.target.checked)}
-                />
-              </td>              
-              <td className="py-2 px-4 border-b border-gray-300">{res.level}</td>
-              <td className="py-2 px-4 border-b border-gray-300">{res.region}</td>
-              {Array.from({ length:  formData.totalContractPeriod  }, (_, i) => (
-                <td key={i + 1} className="py-2 px-4 border-b border-gray-300">
-                  <input
-                    type="number"
-                    className="w-full px-2 py-1 border border-gray-300 rounded-md"
-                    placeholder="Man-days"
-                    value={manDays[`${res.level}-${res.region}-${i + 1}`] || ''}
-                    onChange={(e) => handleInputChange(e, res, i + 1, 'manDays')}
-                  />
-                  <input
-                    type="number"
-                    className="w-full mt-1 px-2 py-1 border border-gray-300 rounded-md"
-                    placeholder="Quantity"
-                    value={quantities[`${res.level}-${res.region}-${i + 1}`] || ''}
-                    onChange={(e) => handleInputChange(e, res, i + 1, 'quantity')}
-                  />
-                </td>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr>
+              <th className="py-2 px-4 border-b border-gray-300">Enable</th>
+              <th className="py-2 px-4 border-b border-gray-300">Level</th>
+              <th className="py-2 px-4 border-b border-gray-300">Country</th>
+              <th className="py-2 px-4 border-b border-gray-300">Monthly Cost</th>
+              {Array.from({ length: totalMonths }, (_, i) => (
+                <th key={i} className="py-2 px-4 border-b border-gray-300 min-w-[100px]">M{i + 1}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredResourceData.map((res) => (
+              <tr key={`${res.level}-${res.region}`}>
+                <td className="py-2 px-4 border-b border-gray-300">
+                  <input
+                    type="checkbox"
+                    checked={enabledResources[`${res.level}-${res.region}`] || false}
+                    onChange={(e) => handleSwitchChange(`${res.level}-${res.region}`, e.target.checked)}
+                  />
+                </td>              
+                <td className="py-2 px-4 border-b border-gray-300">{res.level}</td>
+                <td className="py-2 px-4 border-b border-gray-300">{res.region}</td>
+                <td className="py-2 px-4 border-b border-gray-300">{res.cost}</td>
+                {Array.from({ length: totalMonths }, (_, i) => (
+                  <td key={i} className="py-2 px-4 border-b border-gray-300">
+                    <input
+                      type="number"
+                      className="w-full px-2 py-1 border border-gray-300 rounded-md"
+                      placeholder="Man-days"
+                      value={manDays[`${res.level}-${res.region}-${i + 1}`] || ''}
+                      onChange={(e) => handleInputChange(e, res, i + 1, 'manDays')}
+                    />
+                    <input
+                      type="number"
+                      className="w-full mt-1 px-2 py-1 border border-gray-300 rounded-md"
+                      placeholder="Quantity"
+                      value={quantities[`${res.level}-${res.region}-${i + 1}`] || ''}
+                      onChange={(e) => handleInputChange(e, res, i + 1, 'quantity')}
+                    />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       
       <div className="mt-4">
-        <h2 className="text-xl font-bold">Total Cost: {totalCost}</h2>
+        <h2 className="text-xl font-bold">Total Cost: {totalCost.toFixed(2)}</h2>
       </div>
     </div>
   );
 };
 
 export default Rls;
-
-
-
-
-
-
-

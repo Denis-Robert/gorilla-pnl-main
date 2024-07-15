@@ -42,18 +42,24 @@ function Kif({ formData, setFormData }) {
     const newFormData = { ...formData, [fieldId]: value };
     const startDate = newFormData["start_date"];
     const endDate = newFormData["end_date"];
-
+  
     if (startDate && endDate) {
       const start = new Date(startDate);
       const end = new Date(endDate);
-      const months =
-        (end.getFullYear() - start.getFullYear()) * 12 +
-        end.getMonth() -
-        start.getMonth();
-      const totalContractPeriod = months >= 0 ? months : 0;
+      
+      // Calculate the difference in months
+      const months = (end.getFullYear() - start.getFullYear()) * 12 + 
+                     (end.getMonth() - start.getMonth());
+      
+      // Add 1 to include partial months, if the end date is later in the month than the start date
+      const totalMonths = end.getDate() >= start.getDate() ? months + 1 : months;
+      
+      // Ensure the result is not negative
+      const totalContractPeriod = Math.max(0, totalMonths);
+  
       setFormData({
         ...newFormData,
-        totalContractPeriod: totalContractPeriod.toString(),
+        total_contract: totalContractPeriod.toString(),
       });
     }
   };
