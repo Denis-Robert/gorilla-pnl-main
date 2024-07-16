@@ -64,7 +64,7 @@ function Kif({ formData, setFormData }) {
     }
   };
 
-  console.log("KIF page: ",formData)
+  
   return (
     <>
       <div className="bg-white bg-cover m-0 p-0 box-border overflow-hidden text-black">
