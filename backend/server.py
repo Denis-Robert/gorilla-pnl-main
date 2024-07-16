@@ -1,91 +1,3 @@
-# from flask import Flask, request, jsonify
-# from flask_cors import CORS
-# import read_table as rt
-# import write_table as wd
-# from mongo import mongo_write, mongo_del, mongo_find
-# import json
-# import ast
-
-# app = Flask(__name__)
-# CORS(app)
-
-# region=""
-
-# # Home Page DB Read
-# @app.route('/api/deals', methods=['POST','GET'])
-# def homepage_db_read():
-#     data=rt.homepage_read()
-#     return data
-
-# # Create KIF
-# @app.route('/api/submit', methods=['POST'])
-# def submit():
-#     data = request.get_json()
-#     deal_id=wd.write_deal(data)
-#     print(deal_id)
-#     return jsonify(deal_id), 201
-
-# @app.route('/edit-kif', methods=['POST'])
-# def edit_kif():
-#     data=request.get_json()
-#     global region
-#     kif=rt.read_kif(data)
-#     return kif
-
-# # Create Quote
-# @app.route('/api/create-quote', methods=['POST','GET'])
-# def create():
-#     data=rt.read_pricelist() # Reads Pricelist from db and sends to frontend as json
-#     # print(data)
-#     return data
-
-
-# @app.route('/api/read-rls', methods=['POST','GET'])
-# def read_rls():
-#     data=rt.read_rls()
-#     # print(data)
-#     return data
-
-
-# @app.route('/api/writemongo', methods=['POST'])
-# def write_mongo():
-#     data = request.json
-#     deal=data.get('deal')
-#     miscdata=data.get('miscData')
-#     shoppingcart=data.get('shoppingCart')
-#     rlscart=data.get('rlsCart')
-#     mongo_data=deal|{'shopping_cart':shoppingcart,'rls_cart':rlscart,'misc_data':miscdata}
-    
-#     mongo_write(mongo_data)
-
-#     return jsonify({'message': 'Data received successfully'})
-
-
-# @app.route('/api/delete',methods=['POST','GET'])
-# def del_deal():
-#     data=request.get_json()
-#     wd.del_deal(data)
-#     mongo_del(data)
-#     return "1"
-
-
-# @app.route('/api/edit/<deal_id>',methods=['POST','GET'])
-# def test(deal_id):
-#     # deal_id=request.json.get('deal_id')
-#     # deal_id=request.args.get('deal_id')
-#     # deal_id = 20240605765
-#     deal_id=int(deal_id)
-#     data1=mongo_find(deal_id)
-#     data2=rt.read_kif(deal_id)
-#     data2=json.loads(data2[1:-1]) 
-#     return {'formData':data2}|data1
-
-# if __name__ == '__main__':
-#     app.run(debug=True,port=5000)
-
-
-
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import read_table as rt
@@ -93,8 +5,9 @@ import write_table as wd
 from mongo import mongo_write, mongo_del, mongo_find, mongo_find_all  # Import the new function
 import json
 import pdfkit
-path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+from flask import jsonify
+# path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+# config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
 app = Flask(__name__)
 CORS(app)
@@ -122,10 +35,9 @@ def edit_kif():
     kif = rt.read_kif(data)
     return kif
 
-# Create Quote
 @app.route('/api/create-quote', methods=['POST', 'GET'])
 def create():
-    data = rt.read_pricelist()  # Reads Pricelist from db and sends to frontend as json
+    data = rt.read_pricelist()  
     return data
 
 @app.route('/api/read-rls', methods=['POST', 'GET'])
@@ -133,17 +45,21 @@ def read_rls():
     data = rt.read_rls()
     return data
 
+
+
 @app.route('/api/writemongo', methods=['POST'])
 def write_mongo():
     data = request.json
-    deal = data.get('deal') #type:ignore
-    miscdata = data.get('miscData')#type:ignore
-    shoppingcart = data.get('shoppingCart') #type:ignore
-    rlscart = data.get('rlsCart') #type:ignore
-    mongo_data = deal  | {'shopping_cart': shoppingcart, 'rls_cart': rlscart, 'misc_data': miscdata}
+    deal = data.get('deal')
+    miscdata = data.get('miscData')
+    shoppingcart = data.get('shoppingCart')
+    rlscart = data.get('rlsCart')
+    print(deal)
+    mongo_data = deal | {'shopping_cart': shoppingcart, 'rls_cart': rlscart, 'misc_data': miscdata}
     
     mongo_write(mongo_data)
     return jsonify({'message': 'Data received successfully'})
+
 
 @app.route('/api/delete', methods=['POST', 'GET'])
 def del_deal():
@@ -158,14 +74,30 @@ def test(deal_id):
     deal_id = int(deal_id)
     data1 = mongo_find(deal_id)
     data2 = rt.read_kif(deal_id)
-    data2 = json.loads(data2[1:-1])
-    workNature={'Software':data2['software'],'Hardware':data2['hardware'],'License':data2['license'],'Customization':data2['customization'],'Enhancement':data2['enhancement'],'Deployment':data2['deployment'],'Support':data2['support'],'Professional Services':data2['professional_service']}
+    data2 = json.loads(data2)
+    
+    if data2:
+        data2 = data2[0]  
+        workNature = {
+            'Software': data2.get('software'),
+            'Hardware': data2.get('hardware'),
+            'License': data2.get('license'),
+            'Customization': data2.get('customization'),
+            'Enhancement': data2.get('enhancement'),
+            'Deployment': data2.get('deployment'),
+            'Support': data2.get('support'),
+            'Professional Services': data2.get('professional_service')
+        }
 
-    del [data2['software'],data2['hardware'],data2['license'],data2['customization'],data2['enhancement'],data2['deployment'],data2['support'],data2['professional_service']] #type:ignore
-    print(workNature)
-    print("\n\n",data2|{'workNature':workNature})
-    #return "1" 
-    return {'formData': data2|{'workNature':workNature}} | data1 #type:ignore
+        for key in workNature.keys():
+            data2.pop(key.lower().replace(' ', '_'), None)
+
+        print(workNature)
+        print("\n\n", {**data2, 'workNature': workNature})
+        
+        return jsonify({'formData': {**data2, 'workNature': workNature}, **data1})
+    else:
+        return jsonify({'error': 'No data found for this deal_id'}), 404
 
 @app.route('/api/print-mongo-data', methods=['GET'])
 def print_mongo_data():
@@ -277,7 +209,7 @@ def pdf():
 
 '''
 
-    pdfkit.from_string(html,'out.pdf',configuration=config,verbose=True)
+    # pdfkit.from_string(html,'out.pdf',configuration=config,verbose=True)
     return "1"
 
 if __name__ == '__main__':

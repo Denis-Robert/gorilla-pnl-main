@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
 import Kif from "../kif/kif";
 import formSchema from "../kif/formschema";
 import Comp from "../components/components";
@@ -11,29 +11,15 @@ import logo from "../../assets/logo1.png";
 import { Link } from "react-router-dom";
 
 const steps = [
-  {
-    id: "Step 1",
-    name: "KIF",
-  },
-  {
-    id: "Step 2",
-    name: "Components",
-  },
-  {
-    id: "Step 3",
-    name: "RLS",
-  },
-  {
-    id: "Step 4",
-    name: "MISC",
-  },
+  { id: "Step 1", name: "KIF" },
+  { id: "Step 2", name: "Components" },
+  { id: "Step 3", name: "RLS" },
+  { id: "Step 4", name: "MISC" },
   { id: "Step 5", name: "Summary" },
 ];
 
-export default function Form() {
-  const [previousStep, setPreviousStep] = useState(0);
+const Form = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const delta = currentStep - previousStep;
   const [shoppingCart, setShoppingCart] = useState({});
   const [rlsCart, setRlsCart] = useState([]);
   const [formData, setFormData] = useState(
@@ -52,15 +38,12 @@ export default function Form() {
     }, {})
   );
 
-
   const [resourceData, setResourceData] = useState([]);
   const [manDays, setManDays] = useState({});
   const [quantities, setQuantities] = useState({});
   const [totalCost, setTotalCost] = useState(0);
   const [selectedCountry, setSelectedCountry] = useState('');
   const [enabledResources, setEnabledResources] = useState({});
-
-
 
   const [miscData, setMiscData] = useState(
     formSchema1.reduce((acc, field) => {
@@ -77,6 +60,63 @@ export default function Form() {
       return acc;
     }, {})
   );
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:5000/api/read-rls');
+        setResourceData(response.data);
+      } catch (error) {
+        console.error('Error fetching resource costs', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const calculateTotal = () => {
+      let total = 0;
+      const workingDaysPerMonth = 22;
+
+      resourceData.forEach(res => {
+        if (enabledResources[`${res.level}-${res.region}`]) {
+          for (let month = 1; month <= parseInt(formData.total_contract) || 0; month++) {
+            const key = `${res.level}-${res.region}-${month}`;
+            const manDay = parseFloat(manDays[key]) || 0;
+            const quantity = parseFloat(quantities[key]) || 0;
+            const dailyRate = res.cost / workingDaysPerMonth;
+
+            total += manDay * quantity * dailyRate;
+          }
+        }
+      });
+
+      return total;
+    };
+
+    const newTotalCost = calculateTotal();
+    setTotalCost(newTotalCost);
+
+    const updatedCart = resourceData
+      .filter(res => enabledResources[`${res.level}-${res.region}`])
+      .map(res => {
+        const level = res.level;
+        const region = res.region;
+        const manDayQuantities = Array.from({ length: parseInt(formData.total_contract) || 0 }, (_, i) => ({
+          month: `M${i + 1}`,
+          manDays: parseFloat(manDays[`${level}-${region}-${i + 1}`]) || 0,
+          quantities: parseFloat(quantities[`${level}-${region}-${i + 1}`]) || 0,
+        }));
+        return {
+          key: `${level}-${region}`,
+          resource: res,
+          manDayQuantities,
+          totalCost: newTotalCost,
+        };
+      });
+
+    setRlsCart(updatedCart);
+  }, [resourceData, enabledResources, manDays, quantities, formData.total_contract]);
 
   const handleAddToCart = (add_part) => {
     const { part_no, ...partWithoutNo } = add_part;
@@ -96,16 +136,14 @@ export default function Form() {
     }
   };
 
-  const next = async () => {
+  const next = () => {
     if (currentStep < steps.length - 1) {
-      setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
     }
   };
 
   const prev = () => {
     if (currentStep > 0) {
-      setPreviousStep(currentStep);
       setCurrentStep((step) => step - 1);
     }
   };
@@ -113,25 +151,22 @@ export default function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
     let deal;
     try {
-      const res = await axios.post("http://127.0.0.1:5000/api/submit", formData)
-      console.log(res.data)
-      deal = { 'deal_id': res.data }
-    }
-    catch (error) {
-      console.log(error)
+      const res = await axios.post("http://127.0.0.1:5000/api/submit", formData);
+      console.log(res.data);
+      deal = { deal_id: res.data };
+    } catch (error) {
+      console.log(error);
     }
 
-    console.log(deal)
+    console.log(deal);
     const final = {
       deal,
       miscData,
       shoppingCart,
       rlsCart,
     };
-
 
     try {
       const response = await axios.post(
@@ -143,18 +178,46 @@ export default function Form() {
           },
         }
       );
-
     } catch (error) {
       console.error("Error submitting form", error);
-
     }
   };
 
+  const handleRlsCountryChange = (country) => {
+    setSelectedCountry(country);
+  };
+
+  const handleRlsSwitchChange = (resourceKey, isEnabled) => {
+    setEnabledResources(prev => ({
+      ...prev,
+      [resourceKey]: isEnabled,
+    }));
+  };
+
+  const handleRlsInputChange = (e, resource, month, type) => {
+    const value = parseFloat(e.target.value) || 0;
+    const key = `${resource.level}-${resource.region}-${month}`;
+
+    if (type === 'manDays') {
+      setManDays(prev => ({ ...prev, [key]: value }));
+    } else if (type === 'quantity') {
+      setQuantities(prev => ({ ...prev, [key]: value }));
+    }
+  };
+
+  const handleMiscUpdate = (id, value) => {
+    setMiscData(prev => ({ ...prev, [id]: value }));
+  };
+
+  const filteredFormSchema = formSchema1.filter(
+    (field) => formData[field.id] === "Yes"
+  );
+
   return (
     <div className="content">
-      <header className="navbar h-20 py-5 px-10  flex items-center justify-between border-b-2 " >
+      <header className="navbar h-20 py-5 px-10 flex items-center justify-between border-b-2">
         <Link to="/"><img src={logo} alt="gorilla tech grp" className="h-10" /></Link>
-        <h1 className="textwhite text-2xl ">Create A Deal</h1>
+        <h1 className="textwhite text-2xl">Create A Deal</h1>
       </header>
       <section className="absolute inset-0 flex flex-col justify-between p-24 mt-20">
         <nav aria-label="Progress">
@@ -173,7 +236,7 @@ export default function Form() {
                     className="flex w-full flex-col border-l-4 border-indigo-700 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
                     aria-current="step"
                   >
-                    <span className="text-sm font-medium text-indifo-700">
+                    <span className="text-sm font-medium text-indigo-700">
                       {step.id}
                     </span>
                     <span className="text-sm font-medium">{step.name}</span>
@@ -194,8 +257,28 @@ export default function Form() {
         <form className="mt-12 py-12" onSubmit={handleSubmit}>
           {currentStep === 0 && (<Kif formData={formData} setFormData={setFormData} />)}
           {currentStep === 1 && (<Comp shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />)}
-          {currentStep === 2 && <Rls rlsCart={rlsCart} setRlsCart={setRlsCart} formData={formData}/>}
-          {currentStep === 3 && (<Misc miscData={miscData} setMiscData={setMiscData} formData={formData} />)}
+          {currentStep === 2 && (
+            <Rls
+              resourceData={resourceData}
+              totalMonths={parseInt(formData.total_contract) || 0}
+              selectedCountry={selectedCountry}
+              enabledResources={enabledResources}
+              manDays={manDays}
+              quantities={quantities}
+              totalCost={totalCost}
+              onCountryChange={handleRlsCountryChange}
+              onSwitchChange={handleRlsSwitchChange}
+              onInputChange={handleRlsInputChange}
+            />
+          )}
+          {currentStep === 3 && (
+            <Misc
+              miscData={miscData}
+              formData={formData}
+              onUpdate={handleMiscUpdate}
+              filteredFormSchema={filteredFormSchema}
+            />
+          )}
           {currentStep === 4 && (
             <Summary
               formData={formData}
@@ -225,16 +308,12 @@ export default function Form() {
               </button>
             )}
             {currentStep === steps.length - 1 && (
-
-              <button
+              <Link to="/"><button
                 type="submit"
                 className="ml-auto rounded-md bg-indigo-700 py-2 px-4 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600"
-                onClick={handleSubmit}
-              ><Link to="/">
-                  Submit
-                </Link>
-              </button>
-
+              >
+                Submit
+              </button></Link>
             )}
           </div>
         </form>
@@ -242,3 +321,5 @@ export default function Form() {
     </div>
   );
 }
+
+export default Form;

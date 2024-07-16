@@ -1,6 +1,6 @@
 import psycopg2
 from datetime import date
-conn = psycopg2.connect(database="pnl", user="postgres", password="postgres",host="localhost", port="5432") 
+conn = psycopg2.connect(database="pnl", user="denis", password="123",host="localhost", port="5432") 
 cur = conn.cursor()
 
 cur.execute('''create table kif(
@@ -24,7 +24,7 @@ cur.execute('''create table kif(
             total_contract varchar(10) not null,
             region varchar(20) not null check (region in ('Taiwan','UK','Egypt','Thailand','Columbia','India','US','Singapore')),
             domain varchar(10) not null check (domain in ('IoT','Video','Security','Telecom')),
-            direct_sale boolean not null,ro
+            direct_sale boolean not null,
             partner boolean not null,
             third_party boolean not null,
             penalty boolean not null,

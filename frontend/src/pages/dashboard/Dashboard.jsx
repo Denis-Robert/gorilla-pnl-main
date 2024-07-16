@@ -74,9 +74,9 @@ const Dashboard = () => {
                   <span className="deal-id text-white font-normal">{deal.deal_id}</span>
                 </div>
                 <div className="buttons flex space-x-2">
-                {/* <Link to={`/edit/${deal.deal_id}`}>
+                <Link to={`/edit/${deal.deal_id}`}>
                     <button className="edit-btn bg-white px-4 py-2 rounded-lg text-indigo-700">edit</button>
-                  </Link> */}
+                  </Link>
                   <button className="delete-btn bg-white px-4 py-2 rounded-lg text-indigo-700 " onClick={ () => {handleDelete(deal.deal_id)}}>delete</button>
                   <button className="download-btn bg-white px-4 py-2 rounded-lg text-indigo-700 ">download</button>
                 </div>

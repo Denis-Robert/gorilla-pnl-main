@@ -7,16 +7,22 @@ function Comp({ shoppingCart, setShoppingCart }) {
   const [parts, setParts] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("hardware");
   console.log("shoppppppppp"+JSON.stringify(shoppingCart))
+
   const data_read = async () => {
     if (selectedCategory !== 'hardware') {
       fetch('http://localhost:5000/api/create-quote')
         .then((res) => res.json())
         .then((data) => {
+          console.log("Fetched data:", data);
           const filteredParts = data.filter(part => part.part_type === selectedCategory);
+          console.log("Filtered parts:", filteredParts);
           setParts(filteredParts.map(part => ({
             ...part,
             unit_price: part.price // Ensure price is mapped to unit_price
           })));
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
         });
     }
   };
@@ -139,7 +145,7 @@ function Comp({ shoppingCart, setShoppingCart }) {
         <div className="selection w-2/3 bg-white p-20 border-4 border-indigo-700 rounded-3xl overflow-auto">
           <select value={selectedCategory} onChange={handleCategoryChange} className="w-full py-2 px-3 rounded bg-white text-black border-2 border-indigo-700 mb-5">
             <option value="hardware">Hardware</option>
-            <option value="software">Software</option>
+            <option value="sw">Software</option>
             <option value="license">License</option>
           </select>
 
@@ -197,3 +203,4 @@ function Comp({ shoppingCart, setShoppingCart }) {
 }
 
 export default Comp;
+
