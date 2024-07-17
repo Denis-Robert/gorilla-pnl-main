@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import read_table as rt
 import write_table as wd
-from mongo import mongo_write, mongo_del, mongo_find, mongo_find_all  # Import the new function
+from mongo import mongo_write, mongo_del, mongo_find, mongo_find_all
 import json
 import pdfkit
 from flask import jsonify
@@ -20,13 +20,6 @@ def homepage_db_read():
     data = rt.homepage_read()
     return data
 
-# Create KIF
-@app.route('/api/submit', methods=['POST'])
-def submit():
-    data = request.get_json()
-    deal_id = wd.write_deal(data)
-    print(deal_id)
-    return jsonify(deal_id), 201
 
 @app.route('/edit-kif', methods=['POST'])
 def edit_kif():
@@ -46,7 +39,6 @@ def read_rls():
     return data
 
 
-
 @app.route('/api/writemongo', methods=['POST'])
 def write_mongo():
     data = request.json
@@ -54,12 +46,30 @@ def write_mongo():
     miscdata = data.get('miscData')
     shoppingcart = data.get('shoppingCart')
     rlscart = data.get('rlsCart')
-    print(deal)
-    mongo_data = deal | {'shopping_cart': shoppingcart, 'rls_cart': rlscart, 'misc_data': miscdata}
     
+    mongo_data = deal | {'shopping_cart': shoppingcart, 'rls_cart': rlscart, 'misc_data': miscdata}
     mongo_write(mongo_data)
-    return jsonify({'message': 'Data received successfully'})
+    message = 'Data created successfully'
+    
+    
+    # existing_document = mongo_find(deal['deal_id'])
+    
+    # if existing_document:
+        
+    #     mongo_update(deal['deal_id'], mongo_data)
+    #     message = 'Data updated successfully'
+    # else:
+    #     # Create a new document
+    #     mongo_write(mongo_data)
+    #     message = 'Data created successfully'
+    
+    return jsonify({'message': message})
 
+@app.route('/api/submit', methods=['POST'])
+def submit():
+    data = request.get_json()
+    deal_id = wd.write_deal(data)
+    return jsonify(deal_id), 201
 
 @app.route('/api/delete', methods=['POST', 'GET'])
 def del_deal():
@@ -70,35 +80,41 @@ def del_deal():
 
 @app.route('/api/edit/<deal_id>', methods=['POST', 'GET'])
 def test(deal_id):
-    print("ingaaaaaaaaa")
     deal_id = int(deal_id)
-    data1 = mongo_find(deal_id)
-    data2 = rt.read_kif(deal_id)
-    data2 = json.loads(data2)
+    mongo_data = mongo_find(deal_id)
+    kif_data = rt.read_kif(deal_id)
+    kif_data = json.loads(kif_data)
     
-    if data2:
-        data2 = data2[0]  
+    if kif_data:
+        kif_data = kif_data[0]  
         workNature = {
-            'Software': data2.get('software'),
-            'Hardware': data2.get('hardware'),
-            'License': data2.get('license'),
-            'Customization': data2.get('customization'),
-            'Enhancement': data2.get('enhancement'),
-            'Deployment': data2.get('deployment'),
-            'Support': data2.get('support'),
-            'Professional Services': data2.get('professional_service')
+            'Software': kif_data.get('software'),
+            'Hardware': kif_data.get('hardware'),
+            'License': kif_data.get('license'),
+            'Customization': kif_data.get('customization'),
+            'Enhancement': kif_data.get('enhancement'),
+            'Deployment': kif_data.get('deployment'),
+            'Support': kif_data.get('support'),
+            'Professional Services': kif_data.get('professional_service')
         }
 
         for key in workNature.keys():
-            data2.pop(key.lower().replace(' ', '_'), None)
+            kif_data.pop(key.lower().replace(' ', '_'), None)
 
         print(workNature)
-        print("\n\n", {**data2, 'workNature': workNature})
+        print("\n\n", {**kif_data, 'workNature': workNature})
         
-        return jsonify({'formData': {**data2, 'workNature': workNature}, **data1})
+        response_data = {
+            'formData': {**kif_data, 'workNature': workNature},
+            'misc_data': mongo_data.get('misc_data', {}),
+            'shopping_cart': mongo_data.get('shopping_cart', {}),
+            'rls_cart': mongo_data.get('rls_cart', [])
+        }
+        
+        return jsonify(response_data)
     else:
         return jsonify({'error': 'No data found for this deal_id'}), 404
-
+    
 @app.route('/api/print-mongo-data', methods=['GET'])
 def print_mongo_data():
     data = mongo_find_all()

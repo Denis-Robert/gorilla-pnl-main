@@ -43,13 +43,6 @@ const formSchema1 = [
 
     },
     {
-        id:"training",
-        label: "Training",
-        type: "integer",
-        
-
-    },
-    {
         id:"one_time_cost",
         label: "One Time Cost",
         type: "integer",

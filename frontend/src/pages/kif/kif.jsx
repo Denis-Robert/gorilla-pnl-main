@@ -1,18 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import React from "react";
 import formSchema from "./formschema";
+import { useState } from "react";
 
-function Kif({ formData, setFormData }) {
-  const navigate = useNavigate();
+const Kif = ({ formData, setFormData, showPopup, setShowPopup }) => {
   const [showPlaceholder, setShowPlaceholder] = useState(false);
-
-  // useEffect(() => {
-  //   const dealID = sessionStorage.getItem("dealID");
-  //   console.log(dealID);
-  // }, []);
-
-  const [showPopup, setShowPopup] = useState(false);
+  const [showOutput, setShowOutput] = useState(false);
 
   const handleDateClick = () => {
     setShowPlaceholder(true);
@@ -20,18 +12,21 @@ function Kif({ formData, setFormData }) {
 
   const handleCheckboxChange = (event, fieldId) => {
     const { value, checked } = event.target;
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [fieldId]: {
-        ...formData[fieldId],
+        ...prevFormData[fieldId],
         [value]: checked,
       },
-    });
+    }));
   };
 
   const handleChange = (event) => {
     const { id, value } = event.target;
-    setFormData({ ...formData, [id]: value });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [id]: value,
+    }));
 
     if (id === "start_date" || id === "end_date") {
       updateTotalContractPeriod(id, value);
@@ -42,21 +37,20 @@ function Kif({ formData, setFormData }) {
     const newFormData = { ...formData, [fieldId]: value };
     const startDate = newFormData["start_date"];
     const endDate = newFormData["end_date"];
-  
+
     if (startDate && endDate) {
       const start = new Date(startDate);
       const end = new Date(endDate);
-      
-      // Calculate the difference in months
-      const months = (end.getFullYear() - start.getFullYear()) * 12 + 
-                     (end.getMonth() - start.getMonth());
-      
-      // Add 1 to include partial months, if the end date is later in the month than the start date
-      const totalMonths = end.getDate() >= start.getDate() ? months + 1 : months;
-      
-      // Ensure the result is not negative
+
+      const months =
+        (end.getFullYear() - start.getFullYear()) * 12 +
+        (end.getMonth() - start.getMonth());
+
+      const totalMonths =
+        end.getDate() >= start.getDate() ? months + 1 : months;
+
       const totalContractPeriod = Math.max(0, totalMonths);
-  
+
       setFormData({
         ...newFormData,
         total_contract: totalContractPeriod.toString(),
@@ -64,12 +58,15 @@ function Kif({ formData, setFormData }) {
     }
   };
 
-  
+  const toggleOutput = (event) => {
+    event.preventDefault();
+    setShowOutput(!showOutput);
+  };
+
+
   return (
     <>
       <div className="bg-white bg-cover m-0 p-0 box-border overflow-hidden text-black">
-
-
         <div className="bg-white text-black w-11/12 mx-auto my-10 rounded-3xl border-4 border-indigo-700 p-10 overflow-hidden">
           <div className="grid grid-cols-3 gap-4">
             {formSchema.map((field) => (
@@ -100,34 +97,34 @@ function Kif({ formData, setFormData }) {
                     placeholder={showPlaceholder ? "dd-mm-yyyy" : ""}
                     className="py-2 px-3 rounded bg-white text-black border-2 border-indigo-700"
                   />
-                ) :
-
-                field?.type === "checkbox" ? (
+                ) : field?.type === "checkbox" ? (
                   <div className="">
-                    {formData && field?.options.map((option) => (
-                      <div key={option} className="flex items-center mb-2 m-3">
-                        <input
-                          type="checkbox"
-                          id={`${field?.id}-${option}`}
-                          value={option}
-                          checked={formData[field?.id][option]}
-                          onChange={(event) =>
-                            handleCheckboxChange(event, field.id)
-                          }
-                          className="mr-2"
-                        />
-                      
-                        <label
-                          htmlFor={`${field?.id}-${option}`}
-                          className="text-black"
+                    {formData &&
+                      field?.options.map((option) => (
+                        <div
+                          key={option}
+                          className="flex items-center mb-2 m-3"
                         >
-                          {option}
-                        </label>
-                      </div>
-                    ))}
-                  </div>  
-                ) : 
-                field?.type === "integer" ? (
+                          <input
+                            type="checkbox"
+                            id={`${field?.id}-${option}`}
+                            value={option}
+                            checked={formData[field?.id][option]}
+                            onChange={(event) =>
+                              handleCheckboxChange(event, field.id)
+                            }
+                            className="mr-2"
+                          />
+                          <label
+                            htmlFor={`${field?.id}-${option}`}
+                            className="text-black"
+                          >
+                            {option}
+                          </label>
+                        </div>
+                      ))}
+                  </div>
+                ) : field?.type === "integer" ? (
                   <input
                     id={field.id}
                     type="number"
@@ -135,17 +132,35 @@ function Kif({ formData, setFormData }) {
                     onChange={handleChange}
                     className="py-2 px-3 rounded bg-white text-black border-2 border-indigo-700"
                   />
-                ) : field.type === "text" ?
-                  (<input
+                ) : field.type === "text" ? (
+                  <input
                     id={field.id}
                     type="text"
                     value={formData[field?.id]}
                     onChange={handleChange}
                     className="py-2 px-3 rounded bg-white text-black border-2 border-indigo-700"
-                  />): null
-                }
+                  />
+                ) : null}
               </div>
             ))}
+          </div>
+          
+          <div className="mt-8">
+            <button
+              onClick={toggleOutput}
+              className="px-4 py-2 bg-indigo-700 text-white rounded"
+            >
+              {showOutput ? "Hide Form Data" : "Show Form Data"}
+            </button>
+            
+            {showOutput && (
+              <div className="mt-4 p-4 bg-gray-100 rounded">
+                <h3 className="font-bold mb-2">Form Data Output:</h3>
+                <pre className="whitespace-pre-wrap">
+                  {JSON.stringify(formData, null, 2)}
+                </pre>
+              </div>
+            )}
           </div>
         </div>
         {showPopup && (
@@ -164,9 +179,6 @@ function Kif({ formData, setFormData }) {
       </div>
     </>
   );
-}
+};
 
 export default Kif;
-
-
-

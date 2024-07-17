@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Misc({ miscData, formData, onUpdate, filteredFormSchema }) {
-  console.log("Misc received props:", { miscData, formData, filteredFormSchema });
+  // console.log("Misc received props:", {
+  //   miscData,
+  //   formData,
+  //   filteredFormSchema,
+  // });
 
   const handleCheckboxChange = (event, fieldId) => {
     const { value, checked } = event.target;
