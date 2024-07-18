@@ -17,6 +17,7 @@ function Kif({ formData, setFormData }) {
   const handleDateClick = () => {
     setShowPlaceholder(true);
   };
+<<<<<<< Updated upstream
 
   const handleCheckboxChange = (event, fieldId) => {
     const { value, checked } = event.target;
@@ -27,22 +28,54 @@ function Kif({ formData, setFormData }) {
         [value]: checked,
       },
     });
+=======
+  const toggleOutput = (event) => {
+    event.preventDefault();
+    setShowOutput(!showOutput);
+>>>>>>> Stashed changes
   };
 
   const handleChange = (event) => {
     const { id, value } = event.target;
+<<<<<<< Updated upstream
     setFormData({ ...formData, [id]: value });
+=======
+    const newFormData = {
+      ...formData,
+      [id]: value,
+    };
+    setFormData(newFormData);
+>>>>>>> Stashed changes
 
     if (id === "start_date" || id === "end_date") {
-      updateTotalContractPeriod(id, value);
+      updateTotalContractPeriod(id, value, newFormData);
     }
   };
 
+<<<<<<< Updated upstream
   const updateTotalContractPeriod = (fieldId, value) => {
     const newFormData = { ...formData, [fieldId]: value };
     const startDate = newFormData["start_date"];
     const endDate = newFormData["end_date"];
   
+=======
+  const handleCheckboxChange = (event, fieldId) => {
+    const { value, checked } = event.target;
+    const newFormData = {
+      ...formData,
+      [fieldId]: {
+        ...formData[fieldId],
+        [value]: checked,
+      },
+    };
+    setFormData(newFormData);
+  };
+
+  const updateTotalContractPeriod = (fieldId, value, newFormData) => {
+    const startDate = fieldId === "start_date" ? value : newFormData["start_date"];
+    const endDate = fieldId === "end_date" ? value : newFormData["end_date"];
+
+>>>>>>> Stashed changes
     if (startDate && endDate) {
       const start = new Date(startDate);
       const end = new Date(endDate);
@@ -64,7 +97,10 @@ function Kif({ formData, setFormData }) {
     }
   };
 
+<<<<<<< Updated upstream
   
+=======
+>>>>>>> Stashed changes
   return (
     <>
       <div className="bg-white bg-cover m-0 p-0 box-border overflow-hidden text-black">
@@ -149,17 +185,17 @@ function Kif({ formData, setFormData }) {
           </div>
         </div>
         {showPopup && (
-          <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-50 flex justify-center items-center ">
-            <div className="bg-white p-5 rounded-lg shadow-md text-black  border-red-500 flex flex-col items-center border-2 ">
-              <h2 className="mb-5">Please, Fill all required Fields</h2>
-              <button
-                onClick={() => setShowPopup(false)}
-                className="px-10 py-4 bg-blue-700 rounded text-black cursor-pointer"
-              >
-                Close
-              </button>
-            </div>
+        <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-5 rounded-lg shadow-md text-black border-red-500 flex flex-col items-center border-2">
+            <h2 className="mb-5">Please fill all required fields</h2>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="px-10 py-4 bg-blue-700 rounded text-black cursor-pointer"
+            >
+              Close
+            </button>
           </div>
+        </div>
         )}
       </div>
     </>

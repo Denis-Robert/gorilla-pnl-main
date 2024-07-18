@@ -58,7 +58,13 @@ def write_mongo():
     mongo_data = deal | {'shopping_cart': shoppingcart, 'rls_cart': rlscart, 'misc_data': miscdata}
     
     mongo_write(mongo_data)
+<<<<<<< Updated upstream
     return jsonify({'message': 'Data received successfully'})
+=======
+    message = 'Data created successfully'
+    
+    return jsonify({'message': message})
+>>>>>>> Stashed changes
 
 
 @app.route('/api/delete', methods=['POST', 'GET'])
