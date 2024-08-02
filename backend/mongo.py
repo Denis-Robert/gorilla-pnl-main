@@ -1,19 +1,12 @@
-# from pymongo import MongoClient
+from pymongo import MongoClient
 
-# MONGO_URI = "mongodb://localhost:27017/"
-# DB_NAME = 'gorilla-pnl'
-# COLLECTION_NAME = 'quote-listing'
+MONGO_URI = "mongodb://localhost:27017/"
+DB_NAME = 'gorilla-pnl'
+COLLECTION_NAME = 'quote-listing'
 
-# client = MongoClient(MONGO_URI)
-# db = client[DB_NAME]
-# collection = db[COLLECTION_NAME]
-
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-import certifi # To access certificate files on system
-
-uri = "mongodb+srv://denisr:WtthcSalp1`@cluster0.omtnf6w.mongodb.net/?appName=cluster0"
-client = MongoClient(uri, server_api=ServerApi('1'),tlsCAFile=certifi.where())
+client = MongoClient(MONGO_URI)
+db = client[DB_NAME]
+collection = db[COLLECTION_NAME]
 
 db=client['gorilla-pnl']
 collection=db['quote-listing']

@@ -6,8 +6,8 @@ from mongo import mongo_write, mongo_del, mongo_find, mongo_find_all
 import json
 import pdfkit
 from flask import jsonify
-# path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-# config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+path_wkhtmltopdf = r'/usr/local/bin/wkhtmltopdf'
+config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
 app = Flask(__name__)
 CORS(app)
@@ -52,16 +52,16 @@ def write_mongo():
     message = 'Data created successfully'
     
     
-    # existing_document = mongo_find(deal['deal_id'])
+    existing_document = mongo_find(deal['deal_id'])
     
-    # if existing_document:
+    if existing_document:
         
-    #     mongo_update(deal['deal_id'], mongo_data)
-    #     message = 'Data updated successfully'
-    # else:
-    #     # Create a new document
-    #     mongo_write(mongo_data)
-    #     message = 'Data created successfully'
+        mongo_update(deal['deal_id'], mongo_data)
+        message = 'Data updated successfully'
+    else:
+        # Create a new document
+        mongo_write(mongo_data)
+        message = 'Data created successfully'
     
     return jsonify({'message': message})
 
@@ -225,7 +225,7 @@ def pdf():
 
 '''
 
-    # pdfkit.from_string(html,'out.pdf',configuration=config,verbose=True)
+    pdfkit.from_string(html,'out.pdf',configuration=config,verbose=True)
     return "1"
 
 if __name__ == '__main__':
