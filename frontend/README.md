@@ -1,8 +1,17 @@
-# React + Vite
+﻿# gorilla-pnl-main
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### All the commands given below are to be executed inside the project folder (i.e., *frontend*)
 
-Currently, two official plugins are available:
+## Installing Libraries:
+*npm i*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Running on dev environment: 
+*npm run dev*
+
+## Creating build files:
+*npm run build*
+
+Creates *.dist* folder for the build files
+
+## Running production version:
+Serve the .dist files using *npm serve* or any other service 
