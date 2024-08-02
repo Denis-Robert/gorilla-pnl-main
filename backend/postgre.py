@@ -1,6 +1,6 @@
 import psycopg2
 from datetime import date
-conn = psycopg2.connect(database="pnl", user="denis", password="123",host="localhost", port="5432") 
+conn = psycopg2.connect(database="pnl", user="test", password="test",host="localhost", port="5432") 
 cur = conn.cursor()
 
 #KIF Table Creation
