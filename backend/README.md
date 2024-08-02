@@ -9,7 +9,7 @@
 4. psycopg2 (Postgres)
 5. pdfkit (wkhtmltopdf to be installed seperately from web in the path '/usr/local/bin/wkhtmltopdf' for Ubuntu)
 
-pip install flask flask_cors pymongo psycopg2-binary 
+pip install flask flask_cors pymongo psycopg2-binary pdfkit
 
 ## Deal ID Generation
 Temporary solution in *deal_id.py*, to be updated with proper internal ID generation logic
