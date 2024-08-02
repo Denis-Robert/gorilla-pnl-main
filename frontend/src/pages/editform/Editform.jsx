@@ -211,7 +211,7 @@
 //         const response = await axios.get(`http://127.0.0.1:5000/api/edit/${deal_id}`);
 //         const data = response.data;
         
-<<<<<<< Updated upstream
+
 //         setFormData(data.formData || {});
 //         setMiscData(data.misc_data || {});
 //         setShoppingCart(data.shopping_cart || {});
@@ -224,7 +224,7 @@
 //         setTotalCost(data.total_cost || 0);
 //         setSelectedCountry(data.selected_country || '');
 //         setEnabledResources(data.enabled_resources || {});
-=======
+
 //         const dealResponse = await axios.get(`http://127.0.0.1:5000/api/edit/${deal_id}`);
 //         const dealData = dealResponse.data;
 //         console.log("API response:", dealData);
@@ -266,7 +266,6 @@
 //           setSelectedCountry(newSelectedCountry);
 //           setTotalCost(newTotalCost);
 //         }
->>>>>>> Stashed changes
 
 //         setIsLoading(false);
 //       } catch (error) {
@@ -294,15 +293,15 @@
 
 //       resourceData.forEach(res => {
 //         if (enabledResources[`${res.level}-${res.region}`]) {
-<<<<<<< Updated upstream
+
 //           for (let month = 1; month <= parseInt(formData.total_contract) || 0; month++) {
-=======
+
 //           for (
 //             let month = 1;
 //             month <= parseInt(formData.total_contract.total_contract) || 0;
 //             month++
 //           ) {
->>>>>>> Stashed changes
+
 //             const key = `${res.level}-${res.region}-${month}`;
 //             const manDay = parseFloat(manDays[key]) || 0;
 //             const quantity = parseFloat(quantities[key]) || 0;
@@ -343,9 +342,9 @@
 //     setRlsCart(updatedCart);
 //   }, [resourceData, enabledResources, manDays, quantities, formData.total_contract]);
 
-<<<<<<< Updated upstream
+
 //   const next = () => setCurrentStep((step) => Math.min(step + 1, steps.length - 1));
-=======
+
 //   const validateRequiredFields = () => {
 //     const requiredFields = formSchema.filter(field => field.required);
 //     for (let field of requiredFields) {
@@ -379,7 +378,7 @@
   
   
 
->>>>>>> Stashed changes
+
 //   const prev = () => setCurrentStep((step) => Math.max(step - 1, 0));
 
 //   const handleSubmit = async (e) => {
@@ -404,14 +403,13 @@
 //       await axios.post("http://localhost:5000/api/writemongo", final, {
 //         headers: { "Content-Type": "application/json" },
 //       });
-<<<<<<< Updated upstream
-=======
+
       
 //       await axios.post("http://localhost:5000/api/submit", formData, {
 //         headers: { "Content-Type": "application/json" },
 //       });
 
->>>>>>> Stashed changes
+
 //       navigate("/");
 //     } catch (error) {
 //       console.error("Error submitting form", error);
@@ -445,22 +443,22 @@
 //     setMiscData(prev => ({ ...prev, [id]: value }));
 //   };
 
-<<<<<<< Updated upstream
+
 //   const filteredFormSchema = formSchema1.filter(
 //     (field) => formData[field.id] === "Yes"
 //   );
-=======
+
 //   const filteredFormSchema = formSchema1.filter((field) => {
 //     return formData[field.id] === "Yes" || formData[field.id] === true;
 //   });
->>>>>>> Stashed changes
+
 
 //   if (isLoading) return <div>Loading...</div>;
 //   if (error) return <div>Error: {error}</div>;
 
 //   const renderStep = () => {
 //     switch (currentStep) {
-<<<<<<< Updated upstream
+
 //       case 0: return <Kif formData={formData} setFormData={setFormData} />;
 //       case 1: return <Comp shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />;
 //       case 2: return (
@@ -490,7 +488,7 @@
 //     }
 //   };
 
-=======
+
 //       case 0:
 //         return (
 //         <Kif 
