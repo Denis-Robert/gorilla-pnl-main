@@ -44,6 +44,8 @@ const Form = () => {
   const [totalCost, setTotalCost] = useState(0);
   const [selectedCountry, setSelectedCountry] = useState('');
   const [enabledResources, setEnabledResources] = useState({});
+  const [showPopup, setShowPopup] = useState(false);
+
 
   const [miscData, setMiscData] = useState(
     formSchema1.reduce((acc, field) => {
@@ -72,6 +74,18 @@ const Form = () => {
     };
     fetchData();
   }, []);
+
+  const validateRequiredFields = () => {
+    const requiredFields = formSchema.filter(field => field.required);
+    for (let field of requiredFields) {
+      if (!formData[field.id]) {
+        setShowPopup(true);
+        return false;
+      }
+    }
+    return true;
+  };
+  
 
   useEffect(() => {
     const calculateTotal = () => {
@@ -137,10 +151,14 @@ const Form = () => {
   };
 
   const next = () => {
+    if (currentStep === 0 && !validateRequiredFields()) {
+      return;
+    }
     if (currentStep < steps.length - 1) {
       setCurrentStep((step) => step + 1);
     }
   };
+  
 
   const prev = () => {
     if (currentStep > 0) {
@@ -255,8 +273,25 @@ const Form = () => {
         </nav>
 
         <form className="mt-12 py-12" onSubmit={handleSubmit}>
+<<<<<<< Updated upstream
           {currentStep === 0 && (<Kif formData={formData} setFormData={setFormData} />)}
           {currentStep === 1 && (<Comp shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />)}
+=======
+          {currentStep === 0 && (
+            <Kif 
+            formData={formData} 
+            setFormData={setFormData}
+            showPopup={showPopup}
+            setShowPopup={setShowPopup}
+            />
+          )}
+          {currentStep === 1 && (
+            <Comp
+              shoppingCart={shoppingCart}
+              setShoppingCart={setShoppingCart}
+            />
+          )}
+>>>>>>> Stashed changes
           {currentStep === 2 && (
             <Rls
               resourceData={resourceData}

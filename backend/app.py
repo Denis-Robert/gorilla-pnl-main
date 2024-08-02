@@ -61,6 +61,7 @@ def write_mongo():
     return jsonify({'message': 'Data received successfully'})
 
 
+
 @app.route('/api/delete', methods=['POST', 'GET'])
 def del_deal():
     data = request.get_json()
@@ -208,6 +209,7 @@ def pdf():
 </html>
 
 '''
+
 
     pdfkit.from_string(html,'out.pdf',configuration=config,verbose=True)
     return "1"

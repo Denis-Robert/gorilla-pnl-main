@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Misc({ miscData, formData, onUpdate, filteredFormSchema }) {
+<<<<<<< Updated upstream
   console.log("Misc received props:", { miscData, formData, filteredFormSchema });
+=======
+
+>>>>>>> Stashed changes
 
   const handleCheckboxChange = (event, fieldId) => {
     const { value, checked } = event.target;
