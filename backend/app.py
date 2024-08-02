@@ -6,8 +6,8 @@ from mongo import mongo_write, mongo_del, mongo_find, mongo_find_all  # Import t
 import json
 import pdfkit
 from flask import jsonify
-# path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
-# config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+path_wkhtmltopdf = r'/usr/local/bin/wkhtmltopdf'
+config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
 app = Flask(__name__)
 CORS(app)
@@ -58,13 +58,8 @@ def write_mongo():
     mongo_data = deal | {'shopping_cart': shoppingcart, 'rls_cart': rlscart, 'misc_data': miscdata}
     
     mongo_write(mongo_data)
-<<<<<<< Updated upstream
     return jsonify({'message': 'Data received successfully'})
-=======
-    message = 'Data created successfully'
-    
-    return jsonify({'message': message})
->>>>>>> Stashed changes
+
 
 
 @app.route('/api/delete', methods=['POST', 'GET'])
@@ -215,7 +210,8 @@ def pdf():
 
 '''
 
-    # pdfkit.from_string(html,'out.pdf',configuration=config,verbose=True)
+
+    pdfkit.from_string(html,'out.pdf',configuration=config,verbose=True)
     return "1"
 
 if __name__ == '__main__':

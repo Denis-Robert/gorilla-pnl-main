@@ -1,7 +1,7 @@
 import psycopg2
 import deal_id as di
 
-conn = psycopg2.connect(database="pnl", user="denis", password="123",host="localhost", port="5432") 
+conn = psycopg2.connect(database="pnl", user="test", password="test",host="localhost", port="5432") 
 cur = conn.cursor()
 
 def write_deal(data):
