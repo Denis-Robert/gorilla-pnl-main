@@ -1,15 +1,3 @@
-<<<<<<< Updated upstream
-import React from 'react';
-import PropTypes from 'prop-types';
-
-const Rls = ({ 
-  resourceData, 
-  totalMonths, 
-  selectedCountry, 
-  enabledResources, 
-  manDays, 
-  quantities, 
-=======
 // import React from "react";
 // import PropTypes from "prop-types";
 
@@ -219,7 +207,6 @@ const Rls = ({
   enabledResources,
   manDays,
   quantities,
->>>>>>> Stashed changes
   totalCost,
   onCountryChange,
   onSwitchChange,

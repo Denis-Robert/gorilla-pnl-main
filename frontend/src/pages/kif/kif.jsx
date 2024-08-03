@@ -17,48 +17,24 @@ function Kif({ formData, setFormData }) {
   const handleDateClick = () => {
     setShowPlaceholder(true);
   };
-<<<<<<< Updated upstream
-
-  const handleCheckboxChange = (event, fieldId) => {
-    const { value, checked } = event.target;
-    setFormData({
-      ...formData,
-      [fieldId]: {
-        ...formData[fieldId],
-        [value]: checked,
-      },
-    });
-=======
   const toggleOutput = (event) => {
     event.preventDefault();
     setShowOutput(!showOutput);
->>>>>>> Stashed changes
   };
 
   const handleChange = (event) => {
     const { id, value } = event.target;
-<<<<<<< Updated upstream
-    setFormData({ ...formData, [id]: value });
-=======
     const newFormData = {
       ...formData,
       [id]: value,
     };
     setFormData(newFormData);
->>>>>>> Stashed changes
 
     if (id === "start_date" || id === "end_date") {
       updateTotalContractPeriod(id, value, newFormData);
     }
   };
 
-<<<<<<< Updated upstream
-  const updateTotalContractPeriod = (fieldId, value) => {
-    const newFormData = { ...formData, [fieldId]: value };
-    const startDate = newFormData["start_date"];
-    const endDate = newFormData["end_date"];
-  
-=======
   const handleCheckboxChange = (event, fieldId) => {
     const { value, checked } = event.target;
     const newFormData = {
@@ -75,7 +51,6 @@ function Kif({ formData, setFormData }) {
     const startDate = fieldId === "start_date" ? value : newFormData["start_date"];
     const endDate = fieldId === "end_date" ? value : newFormData["end_date"];
 
->>>>>>> Stashed changes
     if (startDate && endDate) {
       const start = new Date(startDate);
       const end = new Date(endDate);
@@ -97,10 +72,6 @@ function Kif({ formData, setFormData }) {
     }
   };
 
-<<<<<<< Updated upstream
-  
-=======
->>>>>>> Stashed changes
   return (
     <>
       <div className="bg-white bg-cover m-0 p-0 box-border overflow-hidden text-black">

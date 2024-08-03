@@ -961,7 +961,6 @@
 //     }
 //   };
 
->>>>>>> Stashed changes
 //   return (
 //     <div className="content">
 //       <header className="navbar h-20 py-5 px-10 flex items-center justify-between border-b-2">
@@ -1077,39 +1076,6 @@ const Editform = () => {
   const [error, setError] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
-<<<<<<< Updated upstream
-  // New state for RLS
-  const [resourceData, setResourceData] = useState([]);
-  const [manDays, setManDays] = useState({});
-  const [quantities, setQuantities] = useState({});
-  const [totalCost, setTotalCost] = useState(0);
-  const [selectedCountry, setSelectedCountry] = useState('');
-  const [enabledResources, setEnabledResources] = useState({});
-
-  const fetchData = useCallback(async () => {
-    if (deal_id) {
-      try {
-        setIsLoading(true);
-        const response = await axios.get(`http://127.0.0.1:5000/api/edit/${deal_id}`);
-        const data = response.data;
-        
-        console.log("API response:", data);  // Log the entire API response
-
-        setFormData(data.formData || {});
-        setMiscData(data.misc_data || {});
-        setShoppingCart(data.shopping_cart || {});
-        setRlsCart(data.rls_cart || []);
-        
-        // Set RLS data
-        setResourceData(data.resource_data || []);
-        setManDays(data.man_days || {});
-        setQuantities(data.quantities || {});
-        setTotalCost(data.total_cost || 0);
-        setSelectedCountry(data.selected_country || '');
-        setEnabledResources(data.enabled_resources || {});
-
-        setIsLoading(false);
-=======
   const fetchDealData = useCallback(async () => {
     if (deal_id) {
       try {
@@ -1138,7 +1104,6 @@ const Editform = () => {
         console.log("CompData:", fetchedData.shoppingCart);
         console.log("RlsData:", fetchedData.rlsCart);
         console.log("MiscData:", fetchedData.miscData);
->>>>>>> Stashed changes
       } catch (error) {
         console.error("Error fetching deal data", error);
         setError(`Failed to fetch deal data: ${error.message}`);
@@ -1157,61 +1122,15 @@ const Editform = () => {
   }, []);
 
   useEffect(() => {
-<<<<<<< Updated upstream
-    const calculateTotal = () => {
-      let total = 0;
-      const workingDaysPerMonth = 22;
-
-      resourceData.forEach(res => {
-        if (enabledResources[`${res.level}-${res.region}`]) {
-          for (let month = 1; month <= parseInt(formData.total_contract) || 0; month++) {
-            const key = `${res.level}-${res.region}-${month}`;
-            const manDay = parseFloat(manDays[key]) || 0;
-            const quantity = parseFloat(quantities[key]) || 0;
-            const dailyRate = res.cost / workingDaysPerMonth;
-
-            total += manDay * quantity * dailyRate;
-          }
-        }
-      });
-
-      return total;
-=======
     const fetchData = async () => {
       setIsLoading(true);
       await Promise.all([fetchDealData(), fetchResourceData()]);
       setIsLoading(false);
->>>>>>> Stashed changes
     };
 
     fetchData();
   }, [fetchDealData, fetchResourceData]);
 
-<<<<<<< Updated upstream
-    const updatedCart = resourceData
-      .filter(res => enabledResources[`${res.level}-${res.region}`])
-      .map(res => {
-        const level = res.level;
-        const region = res.region;
-        const manDayQuantities = Array.from({ length: parseInt(formData.total_contract) || 0 }, (_, i) => ({
-          month: `M${i + 1}`,
-          manDays: parseFloat(manDays[`${level}-${region}-${i + 1}`]) || 0,
-          quantities: parseFloat(quantities[`${level}-${region}-${i + 1}`]) || 0,
-        }));
-        return {
-          key: `${level}-${region}`,
-          resource: res,
-          manDayQuantities,
-          totalCost: newTotalCost,
-        };
-      });
-
-    setRlsCart(updatedCart);
-  }, [resourceData, enabledResources, manDays, quantities, formData.total_contract]);
-
-  const next = () => setCurrentStep((step) => Math.min(step + 1, steps.length - 1));
-  const prev = () => setCurrentStep((step) => Math.max(step - 1, 0));
-=======
   const validateRequiredFields = (formData) => {
     const requiredFields = formSchema.filter(field => field.required);
     const missingFields = [];
@@ -1245,24 +1164,16 @@ const Editform = () => {
   };
 
   const handlePrev = () => setCurrentStep(prev => Math.max(prev - 1, 0));
->>>>>>> Stashed changes
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const finalData = {
       deal: { deal_id },
-<<<<<<< Updated upstream
-      miscData,
-      shoppingCart,
-      rlsCart,
-      formData,
-=======
       formData: kifData || initialDealData.formData,
       misc_data: miscData,
       shopping_cart: compData,
       rls_cart: rlsData,
->>>>>>> Stashed changes
       resourceData,
     };
 
@@ -1272,8 +1183,6 @@ const Editform = () => {
       const response1 = await axios.post("http://localhost:5000/api/writemongo", finalData, {
         headers: { "Content-Type": "application/json" },
       });
-<<<<<<< Updated upstream
-=======
       console.log("writemongo response:", response1.data);
       
       const response2 = await axios.post("http://localhost:5000/api/submit", finalData.formData, {
@@ -1281,7 +1190,6 @@ const Editform = () => {
       });
       console.log("submit response:", response2.data);
 
->>>>>>> Stashed changes
       navigate("/");
     } catch (error) {
       console.error("Error submitting form", error);
@@ -1289,39 +1197,6 @@ const Editform = () => {
     }
   };
 
-<<<<<<< Updated upstream
-  const handleRlsCountryChange = (country) => {
-    setSelectedCountry(country);
-  };
-
-  const handleRlsSwitchChange = (resourceKey, isEnabled) => {
-    setEnabledResources(prev => ({
-      ...prev,
-      [resourceKey]: isEnabled,
-    }));
-  };
-
-  const handleRlsInputChange = (e, resource, month, type) => {
-    const value = parseFloat(e.target.value) || 0;
-    const key = `${resource.level}-${resource.region}-${month}`;
-
-    if (type === 'manDays') {
-      setManDays(prev => ({ ...prev, [key]: value }));
-    } else if (type === 'quantity') {
-      setQuantities(prev => ({ ...prev, [key]: value }));
-    }
-  };
-
-  const handleMiscUpdate = (id, value) => {
-    setMiscData(prev => ({ ...prev, [id]: value }));
-  };
-
-  const filteredFormSchema = formSchema1.filter(
-    (field) => formData[field.id] === "Yes"
-  );
-
-  console.log("Filtered Form Schema:", filteredFormSchema);
-=======
   const handleFieldChange = (newData) => {
     setKifData(newData);
   };
@@ -1330,27 +1205,12 @@ const Editform = () => {
     const formData = kifData || initialDealData.formData;
     return formData[field.id] === "Yes" || formData[field.id] === true;
   });
->>>>>>> Stashed changes
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   const renderStep = () => {
     switch (currentStep) {
-<<<<<<< Updated upstream
-      case 0: return <Kif formData={formData} setFormData={setFormData} />;
-      case 1: return <Comp shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />;
-      case 2: 
-        console.log("RLS props:", {
-          resourceData,
-          totalMonths: parseInt(formData.total_contract) || 0,
-          selectedCountry,
-          enabledResources,
-          manDays,
-          quantities,
-          totalCost
-        });
-=======
       case 0:
         console.log("Rendering KIF with data:", kifData || initialDealData.formData);
         return (
@@ -1371,7 +1231,6 @@ const Editform = () => {
         );
       case 2:
         console.log("Rendering Rls with data:", rlsData);
->>>>>>> Stashed changes
         return (
           <Rls
             resourceData={resourceData}
@@ -1381,15 +1240,7 @@ const Editform = () => {
           />
         );
       case 3:
-<<<<<<< Updated upstream
-        console.log("Misc props:", {
-          miscData,
-          formData,
-          filteredFormSchema
-        });
-=======
         console.log("Rendering Misc with data:", miscData);
->>>>>>> Stashed changes
         return (
           <Misc
             miscData={miscData}
@@ -1398,10 +1249,6 @@ const Editform = () => {
             filteredFormSchema={filteredFormSchema}
           />
         );
-<<<<<<< Updated upstream
-      case 4: return <Summary formData={formData} shoppingCart={shoppingCart} rlsCart={rlsCart} miscData={miscData} />;
-      default: return null;
-=======
       case 4:
         console.log("Rendering Summary with data:", {
           formData: kifData || initialDealData.formData,
@@ -1417,7 +1264,6 @@ const Editform = () => {
         />;
       default:
         return null;
->>>>>>> Stashed changes
     }
   };
 
@@ -1432,18 +1278,11 @@ const Editform = () => {
           <ol role="list" className="space-y-4 md:flex md:space-x-8 md:space-y-0">
             {steps.map((step, index) => (
               <li key={step.name} className="md:flex-1">
-<<<<<<< Updated upstream
-                <div className={`group flex w-full flex-col border-l-4 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4 ${
-                  currentStep > index ? "border-indigo-700" : 
-                  currentStep === index ? "border-indigo-700" : "border-gray-200"
-                }`}>
-=======
                 <div
                   className={`group flex w-full flex-col border-l-4 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4 ${
                     currentStep >= index ? "border-indigo-700" : "border-gray-200"
                   }`}
                 >
->>>>>>> Stashed changes
                   <span className={`text-sm font-medium ${
                     currentStep === index ? "text-indigo-700" : "text-gray-500"
                   } transition-colors`}>

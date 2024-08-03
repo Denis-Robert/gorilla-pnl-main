@@ -273,10 +273,6 @@ const Form = () => {
         </nav>
 
         <form className="mt-12 py-12" onSubmit={handleSubmit}>
-<<<<<<< Updated upstream
-          {currentStep === 0 && (<Kif formData={formData} setFormData={setFormData} />)}
-          {currentStep === 1 && (<Comp shoppingCart={shoppingCart} setShoppingCart={setShoppingCart} />)}
-=======
           {currentStep === 0 && (
             <Kif 
             formData={formData} 
@@ -291,7 +287,6 @@ const Form = () => {
               setShoppingCart={setShoppingCart}
             />
           )}
->>>>>>> Stashed changes
           {currentStep === 2 && (
             <Rls
               resourceData={resourceData}
