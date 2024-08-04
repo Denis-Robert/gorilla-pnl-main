@@ -42,10 +42,9 @@ const Form = () => {
   const [manDays, setManDays] = useState({});
   const [quantities, setQuantities] = useState({});
   const [totalCost, setTotalCost] = useState(0);
-  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [enabledResources, setEnabledResources] = useState({});
   const [showPopup, setShowPopup] = useState(false);
-
 
   const [miscData, setMiscData] = useState(
     formSchema1.reduce((acc, field) => {
@@ -66,17 +65,17 @@ const Form = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:5000/api/read-rls');
+        const response = await axios.get("http://127.0.0.1:5000/api/read-rls");
         setResourceData(response.data);
       } catch (error) {
-        console.error('Error fetching resource costs', error);
+        console.error("Error fetching resource costs", error);
       }
     };
     fetchData();
   }, []);
 
   const validateRequiredFields = () => {
-    const requiredFields = formSchema.filter(field => field.required);
+    const requiredFields = formSchema.filter((field) => field.required);
     for (let field of requiredFields) {
       if (!formData[field.id]) {
         setShowPopup(true);
@@ -85,16 +84,19 @@ const Form = () => {
     }
     return true;
   };
-  
 
   useEffect(() => {
     const calculateTotal = () => {
       let total = 0;
       const workingDaysPerMonth = 22;
 
-      resourceData.forEach(res => {
+      resourceData.forEach((res) => {
         if (enabledResources[`${res.level}-${res.region}`]) {
-          for (let month = 1; month <= parseInt(formData.total_contract) || 0; month++) {
+          for (
+            let month = 1;
+            month <= parseInt(formData.total_contract) || 0;
+            month++
+          ) {
             const key = `${res.level}-${res.region}-${month}`;
             const manDay = parseFloat(manDays[key]) || 0;
             const quantity = parseFloat(quantities[key]) || 0;
@@ -112,15 +114,19 @@ const Form = () => {
     setTotalCost(newTotalCost);
 
     const updatedCart = resourceData
-      .filter(res => enabledResources[`${res.level}-${res.region}`])
-      .map(res => {
+      .filter((res) => enabledResources[`${res.level}-${res.region}`])
+      .map((res) => {
         const level = res.level;
         const region = res.region;
-        const manDayQuantities = Array.from({ length: parseInt(formData.total_contract) || 0 }, (_, i) => ({
-          month: `M${i + 1}`,
-          manDays: parseFloat(manDays[`${level}-${region}-${i + 1}`]) || 0,
-          quantities: parseFloat(quantities[`${level}-${region}-${i + 1}`]) || 0,
-        }));
+        const manDayQuantities = Array.from(
+          { length: parseInt(formData.total_contract) || 0 },
+          (_, i) => ({
+            month: `M${i + 1}`,
+            manDays: parseFloat(manDays[`${level}-${region}-${i + 1}`]) || 0,
+            quantities:
+              parseFloat(quantities[`${level}-${region}-${i + 1}`]) || 0,
+          })
+        );
         return {
           key: `${level}-${region}`,
           resource: res,
@@ -130,7 +136,13 @@ const Form = () => {
       });
 
     setRlsCart(updatedCart);
-  }, [resourceData, enabledResources, manDays, quantities, formData.total_contract]);
+  }, [
+    resourceData,
+    enabledResources,
+    manDays,
+    quantities,
+    formData.total_contract,
+  ]);
 
   const handleAddToCart = (add_part) => {
     const { part_no, ...partWithoutNo } = add_part;
@@ -158,7 +170,6 @@ const Form = () => {
       setCurrentStep((step) => step + 1);
     }
   };
-  
 
   const prev = () => {
     if (currentStep > 0) {
@@ -167,26 +178,29 @@ const Form = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    let deal;
-    try {
-      const res = await axios.post("http://127.0.0.1:5000/api/submit", formData);
-      console.log(res.data);
-      deal = { deal_id: res.data };
-    } catch (error) {
-      console.log(error);
-    }
-
-    console.log(deal);
-    const final = {
-      deal,
-      miscData,
-      shoppingCart,
-      rlsCart,
-    };
+    e.preventDefault(); // Prevent the default form submission behavior
+    console.log("Form submitted");
 
     try {
+      // First API call: Submit form data to create a new deal
+      const res = await axios.post(
+        "http://127.0.0.1:5000/api/submit",
+        formData
+      );
+      console.log("API submit response:", res.data);
+
+      // Extract the deal_id from the response
+      const deal = { deal_id: res.data };
+
+      // Prepare the final data object for MongoDB
+      const final = {
+        deal,
+        miscData,
+        shoppingCart,
+        rlsCart,
+      };
+
+      // Second API call: Write the complete data to MongoDB
       const response = await axios.post(
         "http://localhost:5000/api/writemongo",
         final,
@@ -196,8 +210,26 @@ const Form = () => {
           },
         }
       );
+      console.log("MongoDB write response:", response.data);
+
+      // If both API calls are successful, navigate to the home page
+      window.location.href = "/";
     } catch (error) {
-      console.error("Error submitting form", error);
+      // Error handling
+      console.error("Error submitting form:", error);
+
+      if (error.response) {
+        console.error("Error response data:", error.response.data);
+        console.error("Error response status:", error.response.status);
+        console.error("Error response headers:", error.response.headers);
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+      } else {
+        console.error("Error message:", error.message);
+      }
+
+      // Optionally, display an error message to the user
+      alert("An error occurred while submitting the form. Please try again.");
     }
   };
 
@@ -206,7 +238,7 @@ const Form = () => {
   };
 
   const handleRlsSwitchChange = (resourceKey, isEnabled) => {
-    setEnabledResources(prev => ({
+    setEnabledResources((prev) => ({
       ...prev,
       [resourceKey]: isEnabled,
     }));
@@ -216,15 +248,15 @@ const Form = () => {
     const value = parseFloat(e.target.value) || 0;
     const key = `${resource.level}-${resource.region}-${month}`;
 
-    if (type === 'manDays') {
-      setManDays(prev => ({ ...prev, [key]: value }));
-    } else if (type === 'quantity') {
-      setQuantities(prev => ({ ...prev, [key]: value }));
+    if (type === "manDays") {
+      setManDays((prev) => ({ ...prev, [key]: value }));
+    } else if (type === "quantity") {
+      setQuantities((prev) => ({ ...prev, [key]: value }));
     }
   };
 
   const handleMiscUpdate = (id, value) => {
-    setMiscData(prev => ({ ...prev, [id]: value }));
+    setMiscData((prev) => ({ ...prev, [id]: value }));
   };
 
   const filteredFormSchema = formSchema1.filter(
@@ -234,12 +266,17 @@ const Form = () => {
   return (
     <div className="content">
       <header className="navbar h-20 py-5 px-10 flex items-center justify-between border-b-2">
-        <Link to="/"><img src={logo} alt="gorilla tech grp" className="h-10" /></Link>
+        <Link to="/">
+          <img src={logo} alt="gorilla tech grp" className="h-10" />
+        </Link>
         <h1 className="textwhite text-2xl">Create A Deal</h1>
       </header>
       <section className="absolute inset-0 flex flex-col justify-between p-24 mt-20">
         <nav aria-label="Progress">
-          <ol role="list" className="space-y-4 md:flex md:space-x-8 md:space-y-0">
+          <ol
+            role="list"
+            className="space-y-4 md:flex md:space-x-8 md:space-y-0"
+          >
             {steps.map((step, index) => (
               <li key={step.name} className="md:flex-1">
                 {currentStep > index ? (
@@ -274,11 +311,11 @@ const Form = () => {
 
         <form className="mt-12 py-12" onSubmit={handleSubmit}>
           {currentStep === 0 && (
-            <Kif 
-            formData={formData} 
-            setFormData={setFormData}
-            showPopup={showPopup}
-            setShowPopup={setShowPopup}
+            <Kif
+              formData={formData}
+              setFormData={setFormData}
+              showPopup={showPopup}
+              setShowPopup={setShowPopup}
             />
           )}
           {currentStep === 1 && (
@@ -338,18 +375,19 @@ const Form = () => {
               </button>
             )}
             {currentStep === steps.length - 1 && (
-              <Link to="/"><button
+              <button
                 type="submit"
                 className="ml-auto rounded-md bg-indigo-700 py-2 px-4 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600"
+                onClick={handleSubmit}
               >
                 Submit
-              </button></Link>
+              </button>
             )}
           </div>
         </form>
       </section>
     </div>
   );
-}
+};
 
 export default Form;

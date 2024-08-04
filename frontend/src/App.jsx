@@ -8,6 +8,7 @@ import Summary from "./pages/summary/Summary";
 import Rls from "./pages/rls/Rls";
 import Form from "./pages/form/Form";
 import Editform from "./pages/editform/Editform";
+
 function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/Rls" element={<Rls />} />
         <Route path="/form" element={<Form />} />
         <Route path="/edit/:deal_id" element={<Editform />} />
+       
       </Routes>
     </Router>
   );

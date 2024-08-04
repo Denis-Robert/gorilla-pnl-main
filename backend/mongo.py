@@ -45,9 +45,4 @@ def mongo_find_all():
     return list(collection.find({}))
 
 
-<<<<<<< Updated upstream
 ensure_db_and_collection()
-
-=======
-ensure_db_and_collection()
->>>>>>> Stashed changes

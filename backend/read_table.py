@@ -5,7 +5,7 @@ from decimal import Decimal
 from json import dumps
 from datetime import date
 
-conn = psycopg2.connect(database="pnl", user="test", password="test",host="localhost", port="5432") 
+conn = psycopg2.connect(database="pnl", user="postgres", password="1975",host="localhost", port="5432") 
 cur = conn.cursor()
 
 def json_serial(obj):

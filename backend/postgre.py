@@ -1,6 +1,6 @@
 import psycopg2
 from datetime import date
-conn = psycopg2.connect(database="pnl", user="test", password="test",host="localhost", port="5432") 
+conn = psycopg2.connect(database="pnl", user="postgres", password="1975",host="localhost", port="5432") 
 cur = conn.cursor()
 
 #KIF Table Creation
@@ -29,7 +29,6 @@ cur.execute('''create table kif(
             partner boolean not null,
             third_party boolean not null,
             penalty boolean not null,
-            sla boolean not null,
             acc_manager varchar(50) not null,
             presales_spoc varchar(50) not null,
             currency varchar(5) not null check (currency in ('EGP','THB','USD','NTD')),

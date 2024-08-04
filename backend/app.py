@@ -4,10 +4,10 @@ import read_table as rt
 import write_table as wd
 from mongo import mongo_write, mongo_del, mongo_find, mongo_find_all  # Import the new function
 import json
-import pdfkit
+# import pdfkit
 from flask import jsonify
-path_wkhtmltopdf = r'/usr/local/bin/wkhtmltopdf'
-config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+# path_wkhtmltopdf = r'/usr/local/bin/wkhtmltopdf'
+# config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
 app = Flask(__name__)
 CORS(app)
@@ -211,7 +211,7 @@ def pdf():
 '''
 
 
-    pdfkit.from_string(html,'out.pdf',configuration=config,verbose=True)
+    #pdfkit.from_string(html,'out.pdf',configuration=config,verbose=True)
     return "1"
 
 if __name__ == '__main__':

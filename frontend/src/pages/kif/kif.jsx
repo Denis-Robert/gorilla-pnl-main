@@ -1,25 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.png";
+import React, { useState } from "react";
 import formSchema from "./formschema";
 
-function Kif({ formData, setFormData }) {
-  const navigate = useNavigate();
+function Kif({ formData, setFormData, showPopup, setShowPopup }) {
   const [showPlaceholder, setShowPlaceholder] = useState(false);
-
-  // useEffect(() => {
-  //   const dealID = sessionStorage.getItem("dealID");
-  //   console.log(dealID);
-  // }, []);
-
-  const [showPopup, setShowPopup] = useState(false);
 
   const handleDateClick = () => {
     setShowPlaceholder(true);
-  };
-  const toggleOutput = (event) => {
-    event.preventDefault();
-    setShowOutput(!showOutput);
   };
 
   const handleChange = (event) => {
@@ -55,14 +41,11 @@ function Kif({ formData, setFormData }) {
       const start = new Date(startDate);
       const end = new Date(endDate);
       
-      // Calculate the difference in months
       const months = (end.getFullYear() - start.getFullYear()) * 12 + 
                      (end.getMonth() - start.getMonth());
       
-      // Add 1 to include partial months, if the end date is later in the month than the start date
       const totalMonths = end.getDate() >= start.getDate() ? months + 1 : months;
       
-      // Ensure the result is not negative
       const totalContractPeriod = Math.max(0, totalMonths);
   
       setFormData({
@@ -75,8 +58,6 @@ function Kif({ formData, setFormData }) {
   return (
     <>
       <div className="bg-white bg-cover m-0 p-0 box-border overflow-hidden text-black">
-
-
         <div className="bg-white text-black w-11/12 mx-auto my-10 rounded-3xl border-4 border-indigo-700 p-10 overflow-hidden">
           <div className="grid grid-cols-3 gap-4">
             {formSchema.map((field) => (
@@ -107,9 +88,7 @@ function Kif({ formData, setFormData }) {
                     placeholder={showPlaceholder ? "dd-mm-yyyy" : ""}
                     className="py-2 px-3 rounded bg-white text-black border-2 border-indigo-700"
                   />
-                ) :
-
-                field?.type === "checkbox" ? (
+                ) : field?.type === "checkbox" ? (
                   <div className="">
                     {formData && field?.options.map((option) => (
                       <div key={option} className="flex items-center mb-2 m-3">
@@ -123,7 +102,6 @@ function Kif({ formData, setFormData }) {
                           }
                           className="mr-2"
                         />
-                      
                         <label
                           htmlFor={`${field?.id}-${option}`}
                           className="text-black"
@@ -133,8 +111,7 @@ function Kif({ formData, setFormData }) {
                       </div>
                     ))}
                   </div>  
-                ) : 
-                field?.type === "integer" ? (
+                ) : field?.type === "integer" ? (
                   <input
                     id={field.id}
                     type="number"
@@ -142,20 +119,21 @@ function Kif({ formData, setFormData }) {
                     onChange={handleChange}
                     className="py-2 px-3 rounded bg-white text-black border-2 border-indigo-700"
                   />
-                ) : field.type === "text" ?
-                  (<input
+                ) : field.type === "text" ? (
+                  <input
                     id={field.id}
                     type="text"
                     value={formData[field?.id]}
                     onChange={handleChange}
                     className="py-2 px-3 rounded bg-white text-black border-2 border-indigo-700"
-                  />): null
-                }
+                  />
+                ) : null}
               </div>
             ))}
           </div>
         </div>
-        {showPopup && (
+      </div>
+      {showPopup && (
         <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-5 rounded-lg shadow-md text-black border-red-500 flex flex-col items-center border-2">
             <h2 className="mb-5">Please fill all required fields</h2>
@@ -167,13 +145,9 @@ function Kif({ formData, setFormData }) {
             </button>
           </div>
         </div>
-        )}
-      </div>
+      )}
     </>
   );
 }
 
 export default Kif;
-
-
-

@@ -1,7 +1,7 @@
 import psycopg2
 import deal_id as di
 
-conn = psycopg2.connect(database="pnl", user="test", password="test",host="localhost", port="5432") 
+conn = psycopg2.connect(database="pnl", user="postgres", password="1975",host="localhost", port="5432") 
 cur = conn.cursor()
 
 def write_deal(data):
@@ -36,10 +36,6 @@ def write_deal(data):
     misc=data.get('misc', '')
 
     try:
-<<<<<<< Updated upstream
-        cur.execute('''insert into kif (deal_id,customer_name,customer_type,business_type,guarantee,opportunity,software,hardware,license,customization,enhancement,deployment,support,professional_service,bidding,start_date,end_date,total_contract,region,domain,direct_sale,partner,third_party,penalty,acc_manager,presales_spoc,currency,cust_budget,travel_expense,tool_license,shift_allowance,weekend_allowance,on_call_allowance,one_time_cost,vat,misc) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);''',(deal_id,customer_name,customer_type,business_type,guarantee,opportunity,software,hardware,license,customization,enhancement,deployment,support,professional_service,bidding,start_date,end_date,total_contract,region,domain,direct_sale,partner,third_party,penalty,acc_manager,presales_spoc,currency,cust_budget,travel_expense,tool_license,shift_allowance,weekend_allowance,on_call_allowance,one_time_cost,vat,misc))
-    finally:
-=======
         
         cur.execute("SELECT * FROM kif WHERE deal_id = %s", (deal_id,))
         existing_deal = cur.fetchone()
@@ -84,7 +80,6 @@ def write_deal(data):
         print(f"An error occurred: {e}")
         raise
     else:
->>>>>>> Stashed changes
         conn.commit()
         # cur.close()
         # conn.close()
