@@ -60,7 +60,22 @@ def write_mongo():
     mongo_write(mongo_data)
     return jsonify({'message': 'Data received successfully'})
 
+@app.route('/api/write_edit_mongo', methods=['POST','GET'])
+def editing_mongo():
+    data=request.get_json()
+    deal_id = data.get('deal')
+    miscdata = data.get('miscData')
+    shoppingcart = data.get('shoppingCart')
+    rlscart = data.get('rlsCart')
+    mongo_data = deal | {'shopping_cart': shoppingcart, 'rls_cart': rlscart, 'misc_data': miscdata}
+    mongo_del(deal_id)
+    mongo_write(mongo_data)
 
+@app.route('/api/write_edit_db', methods=['POST','GET'])
+def editing():
+    data=request.get_json()
+    deal=data.get('deal_id')
+    wd.update_deal(data)
 
 @app.route('/api/delete', methods=['POST', 'GET'])
 def del_deal():
@@ -69,9 +84,8 @@ def del_deal():
     mongo_del(data)
     return "1"
 
-@app.route('/api/edit/<deal_id>', methods=['POST', 'GET'])
+@app.route('/api/edit/{deal_id}', methods=['POST', 'GET'])
 def test(deal_id):
-    print("ingaaaaaaaaa")
     deal_id = int(deal_id)
     data1 = mongo_find(deal_id)
     data2 = rt.read_kif(deal_id)
